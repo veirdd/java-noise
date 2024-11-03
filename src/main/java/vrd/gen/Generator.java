@@ -1,18 +1,34 @@
 package vrd.gen;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
 import vrd.noise.Noise;
+import vrd.util.Util;
+import vrd.util.Content;
 
-public abstract class Generator {
+public class Generator {
     public Generator(Noise algorithm, BlendMode blend_mode)
     {
         this.algorithm = algorithm;
         this.blend_mode = blend_mode;
     }
 
-    public abstract ArrayList generate(Object size, Object offset); // todo: u sure object is fine here lol
-    // todo: add strategies for generating in different dimensions
+    public Content generate(int[] size, int[] offset)
+    {
+        // Validate dimensionality of arguments
+        assert size.length == algorithm.dimensionality;
+        assert offset.length == algorithm.dimensionality;
+
+        Content content = new Content(size);
+
+        for(Content.Iterator it = content.iterator(); it.index != it.end(); it.next())
+        {
+            content.set(it.index, algorithm.get(Util.add(it.index, offset)));
+            // Apply scale in noise and offset here (scale is a noise property and offset is a content property)
+        }
+
+        return content;
+    }
 
     protected final Noise algorithm;
     protected final BlendMode blend_mode;

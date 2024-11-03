@@ -11,7 +11,7 @@ import vrd.ui.Ui;
 
 class Main
 {
-    public static void main(String[] args)
+    public static void main(String[] args) // next: some actual rendering lmao
     {
         ArrayList<Integer> content;
 
