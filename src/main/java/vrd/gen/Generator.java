@@ -11,17 +11,20 @@ public class Generator {
         this.blend_mode = blend_mode;
     }
 
-    public Content generate(int[] size, int[] offset)
+    public Content generate(int[] dimensions, int[] offset)
     {
         // Validate dimensionality of arguments
-        assert size.length == algorithm.dimensionality;
+        assert dimensions.length == algorithm.dimensionality;
         assert offset.length == algorithm.dimensionality;
 
-        Content content = new Content(size);
+        Content content = new Content(dimensions);
 
-        for(Content.Iterator it = content.iterator(); !it.end(); it.next())
+        int[] indices;
+        for(int i = 0; i < content.getSize(); ++i)
         {
-            content.set(it.index, algorithm.get(Util.add(it.index, offset)));
+            indices = content.mapIndexToIndices(i);
+
+            content.set(indices, algorithm.get(Util.arraySum(indices, offset)));
             // Apply scale in noise and offset here (scale is a noise property and offset is a content property)
         }
 
@@ -33,4 +36,4 @@ public class Generator {
 }
 
 
-// maybe actually generate the whole content with offset on each update (scale, move, reseed) instead of getting single values every frame
+// todo: maybe actually generate the whole content with offset on each update (scale, move, reseed) instead of getting single values every frame

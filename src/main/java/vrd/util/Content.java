@@ -1,11 +1,11 @@
 package vrd.util;
 
-import java.util.Arrays;
+import java.util.Iterator;
 
-public class Content {
+public class Content implements Iterable<Float> {
     public Content(int[] dimensions)
     {
-        this.dimensions = dimensions.clone();
+        this.dimensions = dimensions.clone(); // todo: check what happens for 0 dimensions lol
 
         int element_count = 1;
         // dimensions[0] * dimensions[1] * ... * dimensions[n]
@@ -15,32 +15,61 @@ public class Content {
         this.data = new Float[element_count];
     }
 
-    public void set(int[] index, float value)
-    { this.data[computeIndex(index)] = value; }
+    public void set(int[] indices, float value)
+    { this.data[mapIndicesToIndex(indices)] = value; }
 
-    public float get(int[] index)
-    { return this.data[computeIndex(index)]; }
+    public float get(int[] indices)
+    { return this.data[mapIndicesToIndex(indices)]; }
 
-    public Content.Iterator iterator()
-    { return new Iterator(this.dimensions); }
+    public int getDimensionality()
+    { return this.dimensions.length; }
+    
+    public int getSize()
+    { return this.data.length; }
 
-    // Converts n-dimensional index to a unique 1-dimensional index
-    private int computeIndex(int[] index)
+    // Converts n-dimensional index (indices) to a unique 1-dimensional index
+    // Public because why the fuck not
+    public int mapIndicesToIndex(int[] indices)
     {
-        assert index.length == this.dimensions.length;
+        assert indices.length == this.dimensions.length;
 
-        // 0 <= index[i] < dimensions[i]
-        for(int i = 0; i < index.length; ++i)
-        { assert index[i] >= 0 && index[i] < this.dimensions[i]; }
+        // 0 <= indices[i] < dimensions[i]
+        for(int i = 0; i < indices.length; ++i)
+        { assert indices[i] >= 0 && indices[i] < this.dimensions[i]; }
 
-        int int_index = 0;
+        int index = 0;
 
-        // index = {4, 3, 7} ->
+        // indices = {4, 3, 7} ->
         // 1 * 4 + dimensions[0] * 3 + dimensions[0] * dimensions[1] * 7
-        for(int i = 0; i < index.length; ++i)
-        { int_index += index[i] * dimensionMultipler(i); }
+        for(int i = 0; i < indices.length; ++i)
+        { index += indices[i] * dimensionMultipler(i); }
 
-        return int_index;
+        return index;
+    }
+
+    public int[] mapIndexToIndices(int index) // todo: does this work?
+    {
+        assert index >= 0 && index < this.data.length;
+
+        int indices[] = new int[this.dimensions.length];
+        int dimension_multipler;
+
+        for(int i = indices.length - 1; i >= 0; --i)
+        {
+            dimension_multipler = dimensionMultipler(i);
+            indices[i] = index / dimension_multipler;
+            index %= dimension_multipler;
+        }
+
+        return indices;
+    }
+
+    // currently obsolete lol
+    // q: can i use this somehow
+    @Override
+    public Iterator<Float> iterator()
+    {
+        return new ContentIterator(this.data);
     }
 
     // Returns the factor used for spanning n-dimensional data uniquely
@@ -57,51 +86,23 @@ public class Content {
 
     final private Float[] data;
     final private int[] dimensions;
-
-    public class Iterator
-    {
-        protected Iterator(int[] dimensions)
-        {
-            this.dimensions = dimensions;
-            // Create index to have the same numer of dimensions as content
-            this.index = new int[dimensions.length];
-        }
-
-        public int[] next()
-        {
-            increment(0);
-
-            return this.index;
-        }
-
-        // Increments the index, starting from dimension dim
-        // Index is reset on overflow
-        // 0 0 0 -> 1 0 0 -> 2 0 0 -> ... -> max 0 0 -> 0 1 0 -> ...
-        private void increment(int dimension)
-        {
-            if(this.index.length == dimension)
-            { return; }
-
-            ++this.index[dimension];
-            
-            if(this.index[dimension] == this.dimensions[dimension])
-            {
-                this.index[dimension] = 0;
-                increment(dimension + 1);
-            }
-        }
-
-        public boolean end()
-        {
-            int[] index_plus_1 = this.index.clone(); // THIS THING WTF GOD
-            
-            for(int i = 0; i < index_plus_1.length; ++i)
-            { ++index_plus_1[i]; }
-
-            return Arrays.equals(index_plus_1, this.dimensions); // ALSO THIS LOL == WONT DO SHIT
-        }
-
-        public int[] index;
-        final private int[] dimensions;
-    }
 }
+
+class ContentIterator implements Iterator<Float> // q: should this be in Content body or here
+{
+    ContentIterator(Float[] data)
+    {
+        this.data = data;
+    }
+
+    @Override
+    public boolean hasNext()
+    { return this.index < this.data.length && this.data[this.index] != null; }
+
+    @Override
+    public Float next()
+    { return this.data[this.index++]; }
+
+    private int index = 0;
+    final private Float[] data;
+};
