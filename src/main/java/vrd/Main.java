@@ -1,22 +1,26 @@
 package vrd;
 
-import java.util.ArrayList;
-
 import javax.swing.SwingUtilities;
-import javax.swing.text.AbstractDocument;
 
-import vrd.gen.*;
-
+import vrd.gen.BlendMode;
+import vrd.gen.Generator;
+import vrd.noise.PerlinNoise1d;
 import vrd.ui.Ui;
+import vrd.util.Content;
 
 class Main
 {
-    public static void main(String[] args) // next: some actual rendering lmao
+    public static void main(String[] args)
     {
-        ArrayList<Integer> content;
+        Generator generator = new Generator(new PerlinNoise1d(), BlendMode.Add);
+        final int[] size = {10};
+        final int[] offset = {0};
+        Content content = generator.generate(size, offset);
+        content.set(new int[]{2}, 2);//d
 
-        Generator generator = new SurfaceGenerator();
-        content = generator.generate();
+        // todo: Content content = new Content(size);
+        //       content.update(generator, offset);
+        // actually i think it's a bad idea (cycle dependency) (maybe resolve differently)
 
         // Run AWT Component operations in ED thread
         SwingUtilities.invokeLater(()->

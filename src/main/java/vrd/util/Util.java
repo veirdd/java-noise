@@ -1,16 +1,19 @@
 package vrd.util;
 
 public class Util {
-    public static int[] add(int[] a, int[] b)
+    // Returns a sum of arrays
+    public static int[] add(final int[] a, final int[] b)
     {
         assert a.length == b.length;
 
+        int[] c = new int[a.length];
+
         // is there a java structured binding?
-        for(int i = 0; i < a.length; ++i)
+        for(int i = 0; i < c.length; ++i)
         {
-            a[i] += b[i];
+            c[i] = a[i] + b[i];
         }
 
-        return a;
+        return c;
     }
 }

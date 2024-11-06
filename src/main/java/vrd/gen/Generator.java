@@ -1,10 +1,8 @@
 package vrd.gen;
 
-import java.util.Iterator;
-
 import vrd.noise.Noise;
-import vrd.util.Util;
 import vrd.util.Content;
+import vrd.util.Util;
 
 public class Generator {
     public Generator(Noise algorithm, BlendMode blend_mode)
@@ -21,7 +19,7 @@ public class Generator {
 
         Content content = new Content(size);
 
-        for(Content.Iterator it = content.iterator(); it.index != it.end(); it.next())
+        for(Content.Iterator it = content.iterator(); !it.end(); it.next())
         {
             content.set(it.index, algorithm.get(Util.add(it.index, offset)));
             // Apply scale in noise and offset here (scale is a noise property and offset is a content property)
