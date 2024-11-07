@@ -14,8 +14,9 @@ public class Generator {
     public Content generate(int[] dimensions, int[] offset)
     {
         // Validate dimensionality of arguments
-        assert dimensions.length == algorithm.dimensionality;
-        assert offset.length == algorithm.dimensionality;
+        if(dimensions.length != algorithm.dimensionality ||
+           offset.length != algorithm.dimensionality)
+        { throw new IllegalArgumentException(); }
 
         Content content = new Content(dimensions);
 

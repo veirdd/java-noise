@@ -31,11 +31,15 @@ public class Content implements Iterable<Float> {
     // Public because why the fuck not
     public int mapIndicesToIndex(int[] indices)
     {
-        assert indices.length == this.dimensions.length;
+        if(indices.length != this.dimensions.length)
+        { throw new IllegalArgumentException(); }
 
         // 0 <= indices[i] < dimensions[i]
         for(int i = 0; i < indices.length; ++i)
-        { assert indices[i] >= 0 && indices[i] < this.dimensions[i]; }
+        {
+            if(indices[i] < 0 || indices[i] >= this.dimensions[i])
+            { throw new IndexOutOfBoundsException(); }
+        }
 
         int index = 0;
 
@@ -49,7 +53,8 @@ public class Content implements Iterable<Float> {
 
     public int[] mapIndexToIndices(int index) // todo: does this work?
     {
-        assert index >= 0 && index < this.data.length;
+        if(index < 0 || index >= this.data.length)
+        { throw new IndexOutOfBoundsException(); }
 
         int indices[] = new int[this.dimensions.length];
         int dimension_multipler;
@@ -102,6 +107,10 @@ class ContentIterator implements Iterator<Float> // q: should this be in Content
     @Override
     public Float next()
     { return this.data[this.index++]; }
+
+    @Override
+    public void remove()
+    { throw new UnsupportedOperationException(); }
 
     private int index = 0;
     final private Float[] data;

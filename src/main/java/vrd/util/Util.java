@@ -4,7 +4,8 @@ public class Util {
     // Returns a sum of arrays
     public static int[] arraySum(final int[] a, final int[] b)
     {
-        assert a.length == b.length;
+        if(a.length != b.length)
+        { throw new IllegalArgumentException(); }
 
         int[] c = new int[a.length];
 
