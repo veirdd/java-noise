@@ -37,4 +37,4 @@ public class Generator {
 }
 
 
-// todo: maybe actually generate the whole content with offset on each update (scale, move, reseed) instead of getting single values every frame
+// maybe: generate the whole content with offset on each update (scale, move, reseed) instead of getting single values every frame

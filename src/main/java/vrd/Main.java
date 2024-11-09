@@ -5,7 +5,6 @@ import javax.swing.SwingUtilities;
 import vrd.gen.BlendMode;
 import vrd.gen.Generator;
 import vrd.noise.PerlinNoise1d;
-import vrd.ui.Ui;
 import vrd.util.Content;
 
 class Main
