@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import vrd.render.Renderer;
 import vrd.ui.Button;
+import vrd.ui.GeneratorsPanel;
 
 public class Ui
 {
@@ -16,19 +17,23 @@ public class Ui
     {
         // Arrange panels to structure UI
 
-        renderer = new Renderer();
-
-        generators_panel = new JPanel();
-            generators_panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            generators_panel.setPreferredSize(new Dimension(300, FRAME_HEIGHT));
-
         apply_button = new Button("Apply");//d
 
+        middle_panel = new JPanel(new BorderLayout());
+            middle_panel.setBorder(BorderFactory.createEmptyBorder(50, 10, 50, 10));
+            middle_panel.add(apply_button, BorderLayout.CENTER);
+
+        generators_panel = new GeneratorsPanel();
+            generators_panel.setBorder(BorderFactory.createBevelBorder(0));
+            generators_panel.setPreferredSize(new Dimension(300, FRAME_HEIGHT));
+
         control_panel = new JPanel(new BorderLayout());
-            control_panel.setPreferredSize(new Dimension(FRAME_WIDTH, 200));
+            control_panel.setPreferredSize(new Dimension(FRAME_WIDTH, 300));
             control_panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             control_panel.add(generators_panel, BorderLayout.WEST);
-            control_panel.add(apply_button, BorderLayout.CENTER);
+            control_panel.add(middle_panel, BorderLayout.CENTER);
+            
+        renderer = new Renderer();
 
         render_panel = new JPanel(new BorderLayout());
             render_panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -54,9 +59,10 @@ public class Ui
         static JPanel render_panel;
             static Renderer renderer;
         static JPanel control_panel;
-            static JPanel generators_panel;
-            static Button apply_button;
+            static GeneratorsPanel generators_panel;
+            static JPanel middle_panel;
+                static Button apply_button;
 
-    static final int FRAME_WIDTH = 800;
-    static final int FRAME_HEIGHT = 600;
+    static final int FRAME_WIDTH = 1200;
+    static final int FRAME_HEIGHT = 800;
 }

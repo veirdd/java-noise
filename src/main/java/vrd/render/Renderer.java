@@ -20,7 +20,7 @@ public class Renderer extends JPanel
         super.paintComponent(g);
 
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 1000, 1000);//d
+        g.fillRect(0, 0, getWidth(), getHeight());//d
     }
 
     Content content;
