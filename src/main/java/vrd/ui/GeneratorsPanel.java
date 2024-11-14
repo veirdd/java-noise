@@ -1,10 +1,9 @@
 package vrd.ui;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.util.ArrayList;
 
+import javax.annotation.processing.Generated;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,18 +13,18 @@ import javax.swing.JScrollPane;
 
 public class GeneratorsPanel extends JScrollPane
 {
-    public GeneratorsPanel()
+    public GeneratorsPanel(ArrayList<GeneratorTile> generator_list)
     {
         super(null, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        
+        this.generator_list = generator_list;
 
         this.panel = new JPanel();
-        this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
-        this.panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        setViewportView(this.panel);
-        
-        this.generators = new ArrayList<JComponent>();
+            this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
+            this.panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            setViewportView(this.panel);
 
-        this.plus = new Button("+");
+        this.plus = new AddGeneratorButton("+", this.generator_list);
 
         updateComponents();
     }
@@ -34,7 +33,7 @@ public class GeneratorsPanel extends JScrollPane
     {
         this.panel.removeAll();
 
-        for(JComponent component : this.generators)
+        for(JComponent component : this.generator_list)
         {
             this.panel.add(component);
             this.panel.add(Box.createRigidArea(new Dimension(5, 5)));
@@ -43,9 +42,8 @@ public class GeneratorsPanel extends JScrollPane
         this.panel.add(this.plus);
     }
 
-    private JPanel panel;
-    private final ArrayList<JComponent> generators;
-    private Button plus;
+    private final JPanel panel;
+    private final ArrayList<GeneratorTile> generator_list;
+    // todo: remake into ArrayList<Generator> and maybe get another list of GeneratorTiles to hold these
+    private final Button plus;
 }
-
-// next: make plus button work lol

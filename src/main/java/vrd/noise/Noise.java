@@ -1,21 +1,17 @@
 package vrd.noise;
 
-public abstract class Noise
-{
-    public Noise(int dimensionality)
-    {
-        this.dimensionality = dimensionality;
-    }
+import vrd.gen.Algorithm;
 
+public abstract class Noise implements Algorithm
+{
+    @Override
     public float get(int[] pos)
     {
-        if(pos.length != this.dimensionality)
+        if(pos.length != this.getDimensionality())
         { throw new IllegalArgumentException(); }
 
         return algorithm(pos);
     }
-    
-    public final int dimensionality;
 
     // Outputs the noise value at given pos
     protected abstract float algorithm(int[] pos);
