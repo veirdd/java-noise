@@ -2,17 +2,18 @@ package vrd.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import vrd.gen.Generator;
 import vrd.render.Renderer;
-import vrd.ui.Button;
 
 public class Ui
 {
-    public void init()
+    public void init(ArrayList<Generator> generators_list)
     {
         // Arrange panels to structurize UI
 
@@ -22,7 +23,7 @@ public class Ui
             middle_panel.setBorder(BorderFactory.createEmptyBorder(50, 10, 50, 10));
             middle_panel.add(this.apply_button, BorderLayout.CENTER);
 
-        this.generators_panel = new GeneratorsPanel();
+        this.generators_panel = new GeneratorsPanel(generators_list);
             generators_panel.setBorder(BorderFactory.createBevelBorder(0));
             generators_panel.setPreferredSize(new Dimension(300, FRAME_HEIGHT));
 

@@ -31,8 +31,8 @@ public class Generator {
         return content;
     }
 
-    protected final Algorithm algorithm;
-    protected final BlendMode blend_mode;
+    public final Algorithm algorithm;
+    public final BlendMode blend_mode;
 }
 
 

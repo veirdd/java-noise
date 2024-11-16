@@ -26,7 +26,7 @@ public class GeneratorDialog extends JDialog
         // Create interface
 
         this.add_button = new Button("Save");
-            this.add_button.addActionListener((ActionEvent e)->
+            this.add_button.addActionListener((ActionEvent _)->
             { save(); });
 
         this.main_panel = new JPanel();
@@ -42,7 +42,7 @@ public class GeneratorDialog extends JDialog
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 
-    public Generator getGenerator()
+    public Generator createGenerator() // next: universal generator creation interface in dialog
     {
         if(this.generator == null)
         { throw new IllegalStateException(); }
@@ -59,6 +59,7 @@ public class GeneratorDialog extends JDialog
     }
 
     private final Runnable save_operation;
+
     // The generator this dialog creates
     private Generator generator;
 

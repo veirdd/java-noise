@@ -2,6 +2,7 @@ package vrd.ui;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -9,16 +10,20 @@ import javax.swing.SwingUtilities;
 import vrd.gen.Algorithm;
 import vrd.gen.BlendMode;
 import vrd.gen.Generator;
+import vrd.noise.PerlinNoise1d;
+import vrd.noise.PerlinNoise2d;
 
 public class AddGeneratorButton extends Button
 {
-    public AddGeneratorButton(String text, ArrayList<GeneratorTile> generator_list)
+    public AddGeneratorButton(String text, ArrayList<Generator> generators_list, Runnable update_notifier)
     {
         super(text);
 
-        this.generator_list = generator_list;
+        this.generators_list = generators_list;
+        
+        this.update_notifier = update_notifier;
 
-        addActionListener((ActionEvent e)->
+        addActionListener((ActionEvent _)->
         { onClick(); });
     }
 
@@ -34,12 +39,13 @@ public class AddGeneratorButton extends Button
     // Add new generator
     private void onDialogSave()
     {
-        Algorithm algorithm = null;//d
-        BlendMode blend_mode = null;//d
+        generators_list.add(dialog.createGenerator());
 
-        generator_list.add(new GeneratorTile(new Generator(algorithm, blend_mode)));
+        update_notifier.run();
     }
 
-    private final ArrayList<GeneratorTile> generator_list;
+    private final ArrayList<Generator> generators_list;
     private GeneratorDialog dialog;
+    // Used to notify about changes to generators_list
+    private final Runnable update_notifier;
 }
