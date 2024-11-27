@@ -5,8 +5,12 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
+import vrd.alg.noise.PerlinNoise1d;
+import vrd.gen.BlendMode;
 import vrd.gen.Generator;
 
 public class GeneratorDialog extends JDialog
@@ -25,27 +29,28 @@ public class GeneratorDialog extends JDialog
 
         // Create interface
 
-        this.add_button = new Button("Save");
-            this.add_button.addActionListener((ActionEvent _)->
+        this.save_button = new Button("Save");
+            this.save_button.setEnabled(false);
+            this.save_button.addActionListener((ActionEvent ignored)->
             { save(); });
 
         this.main_panel = new JPanel();
-            this.main_panel.add(this.add_button);
+            this.main_panel.add(this.save_button);
 
         // Configure dialog
 
-        this.setSize(new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT));
-        this.setLocationRelativeTo(null);
-        this.setContentPane(this.main_panel);
-        this.setResizable(false);
-        this.setVisible(true);
-        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setSize(new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT));
+        setLocationRelativeTo(null);
+        setContentPane(this.main_panel);
+        setResizable(false);
+        setVisible(true);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 
     public Generator createGenerator() // next: universal generator creation interface in dialog
     {
         if(this.generator == null)
-        { throw new IllegalStateException(); }
+        { throw new IllegalStateException("The requested generator has not been formed"); }
 
         return this.generator;
     }
@@ -64,7 +69,13 @@ public class GeneratorDialog extends JDialog
     private Generator generator;
 
     private JPanel main_panel;
-        private Button add_button;
+        private JLabel name_label;
+        private JTextField name_field;
+        private JLabel algorithm_label;
+        private JTextField algorithm_field;
+        private JLabel properties_label;
+        private AlgorithmPropertiesPanel properties_pane;
+        private Button save_button;
     
     private static final int DIALOG_WIDTH = 600;
     private static final int DIALOG_HEIGHT = 400;

@@ -2,16 +2,11 @@ package vrd.ui;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import vrd.gen.Algorithm;
-import vrd.gen.BlendMode;
 import vrd.gen.Generator;
-import vrd.noise.PerlinNoise1d;
-import vrd.noise.PerlinNoise2d;
 
 public class AddGeneratorButton extends Button
 {
@@ -23,7 +18,7 @@ public class AddGeneratorButton extends Button
         
         this.update_notifier = update_notifier;
 
-        addActionListener((ActionEvent _)->
+        addActionListener((ActionEvent ignored)->
         { onClick(); });
     }
 

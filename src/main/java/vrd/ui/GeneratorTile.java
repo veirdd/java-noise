@@ -29,11 +29,11 @@ public class GeneratorTile extends JPanel
         this.generator = generator;
 
         this.up_button = new Button("⬆");
-            this.up_button.addActionListener((ActionEvent _)->
+            this.up_button.addActionListener((ActionEvent ignored)->
             { move_operation.request(Direction.Up); });
 
         this.down_button = new Button("⬇");
-            this.down_button.addActionListener((ActionEvent _)->
+            this.down_button.addActionListener((ActionEvent ignored)->
             { move_operation.request(Direction.Down); });
 
         this.modify_button = new Button("...");
@@ -49,8 +49,8 @@ public class GeneratorTile extends JPanel
             this.right_panel.add(this.down_button);
             this.right_panel.add(this.modify_button);
 
-        add(this.left_panel, BorderLayout.WEST);
-        add(this.right_panel, BorderLayout.EAST);
+        this.add(this.left_panel, BorderLayout.WEST);
+        this.add(this.right_panel, BorderLayout.EAST);
     }
 
     public void setButtonEnabled(ButtonName button_name, boolean enabled)
@@ -59,10 +59,10 @@ public class GeneratorTile extends JPanel
 
         switch(button_name)
         {
-            case ButtonName.Up:
+            case Up:
                 button = this.up_button;
                 break;
-            case ButtonName.Down:
+            case Down:
                 button = this.down_button;
                 break;
             default:

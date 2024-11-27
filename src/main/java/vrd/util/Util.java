@@ -5,7 +5,7 @@ public class Util {
     public static int[] arraySum(final int[] a, final int[] b)
     {
         if(a.length != b.length)
-        { throw new IllegalArgumentException(); }
+        { throw new IllegalArgumentException("Array lengths do not match"); }
 
         int[] c = new int[a.length];
 

@@ -1,5 +1,6 @@
 package vrd.gen;
 
+import vrd.alg.Algorithm;
 import vrd.util.Content;
 import vrd.util.Util;
 
@@ -15,7 +16,7 @@ public class Generator {
         // Validate dimensionality of arguments
         if(dimensions.length != algorithm.getDimensionality() ||
            offset.length != algorithm.getDimensionality())
-        { throw new IllegalArgumentException(); }
+        { throw new IllegalArgumentException("Invalid dimensionality of arguments"); }
 
         Content content = new Content(dimensions);
 

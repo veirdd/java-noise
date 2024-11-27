@@ -4,27 +4,16 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import vrd.gen.Generator;
 import vrd.ui.GeneratorTile.ButtonName;
 
-public class GeneratorsPanel extends JScrollPane
+public class GeneratorsPanel extends ScrollPane
 {
     public GeneratorsPanel(ArrayList<Generator> generators_list)
-    {
-        super(null, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        
+    {        
         this.generators_list = generators_list;
-
-        this.panel = new JPanel();
-            this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
-            this.panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            setViewportView(this.panel);
 
         this.plus = new AddGeneratorButton("+", this.generators_list, ()->
         { updateComponents(); });
@@ -79,7 +68,6 @@ public class GeneratorsPanel extends JScrollPane
         updateComponents();
     }
 
-    private final JPanel panel;
     private final ArrayList<Generator> generators_list;
     private final Button plus;
 }

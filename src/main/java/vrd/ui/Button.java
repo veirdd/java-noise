@@ -8,6 +8,6 @@ public class Button extends JButton
     {
         super(text);
 
-        this.setFocusable(false);
+        setFocusable(false);
     }
 }

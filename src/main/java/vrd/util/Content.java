@@ -32,7 +32,7 @@ public class Content implements Iterable<Float> {
     public int mapIndicesToIndex(int[] indices)
     {
         if(indices.length != this.dimensions.length)
-        { throw new IllegalArgumentException(); }
+        { throw new IllegalArgumentException("Invalid dimensionality of indices"); }
 
         // 0 <= indices[i] < dimensions[i]
         for(int i = 0; i < indices.length; ++i)
