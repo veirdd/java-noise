@@ -2,19 +2,20 @@ package vrd.alg;
 
 public abstract class ConstantValue implements Algorithm
 {
-    public enum Properties
-    {
-        Value
-    }
-
     @Override
     public float get(int[] pos)
     {
         if(pos.length != this.getDimensionality())
         { throw new IllegalArgumentException("Invalid dimensionality of position"); }
 
-        return properties.getProperty(Properties.Value);
+        return 0;
     }
 
-    private AlgorithmProperties properties;
+    @Override
+    public Property[] getProperties()
+    {
+        return new Property[]{new Property(this.value, "Value", Property.Constraint.None)};
+    }
+
+    protected float value;
 }

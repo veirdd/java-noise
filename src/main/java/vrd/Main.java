@@ -12,12 +12,12 @@ class Main
     public static void main(String[] args)
     {
         Ui ui = new Ui();
-        ArrayList<Generator> generators_list = new ArrayList<>();
+        ArrayList<Generator> generator_list = new ArrayList<>();
 
         // Run AWT Component operations in ED thread
         SwingUtilities.invokeLater(()->
         {
-            ui.init(generators_list);
+            ui.init(generator_list);
         });
     }
 }

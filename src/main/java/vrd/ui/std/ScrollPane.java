@@ -1,4 +1,4 @@
-package vrd.ui;
+package vrd.ui.std;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;

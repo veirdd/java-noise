@@ -10,10 +10,11 @@ import javax.swing.JPanel;
 
 import vrd.gen.Generator;
 import vrd.render.Renderer;
+import vrd.ui.std.Button;
 
 public class Ui
 {
-    public void init(ArrayList<Generator> generators_list)
+    public void init(ArrayList<Generator> generator_list)
     {
         // Arrange panels to structurize UI
 
@@ -23,7 +24,7 @@ public class Ui
             middle_panel.setBorder(BorderFactory.createEmptyBorder(50, 10, 50, 10));
             middle_panel.add(this.apply_button, BorderLayout.CENTER);
 
-        this.generators_panel = new GeneratorsPanel(generators_list);
+        this.generators_panel = new GeneratorPanel(generator_list);
             generators_panel.setBorder(BorderFactory.createBevelBorder(0));
             generators_panel.setPreferredSize(new Dimension(300, FRAME_HEIGHT));
 
@@ -58,7 +59,7 @@ public class Ui
         private JPanel render_panel;
             private Renderer renderer;
         private JPanel control_panel;
-            private GeneratorsPanel generators_panel;
+            private GeneratorPanel generators_panel;
             private JPanel middle_panel;
                 private Button apply_button;
 

@@ -26,7 +26,6 @@ public class Generator {
             indices = content.mapIndexToIndices(i);
 
             content.set(indices, algorithm.get(Util.arraySum(indices, offset)));
-            // Apply scale in noise and offset here (scale is a noise property and offset is a content property)
         }
 
         return content;

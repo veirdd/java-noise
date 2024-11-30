@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import vrd.gen.Generator;
 import vrd.ui.MoveTileOperation.Direction;
+import vrd.ui.gen_dialog.GeneratorDialog;
+import vrd.ui.std.Button;
 
 public class GeneratorTile extends JPanel
 {

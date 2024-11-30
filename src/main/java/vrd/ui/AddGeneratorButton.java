@@ -7,14 +7,16 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import vrd.gen.Generator;
+import vrd.ui.gen_dialog.GeneratorDialog;
+import vrd.ui.std.Button;
 
 public class AddGeneratorButton extends Button
 {
-    public AddGeneratorButton(String text, ArrayList<Generator> generators_list, Runnable update_notifier)
+    public AddGeneratorButton(String text, ArrayList<Generator> generator_list, Runnable update_notifier)
     {
         super(text);
 
-        this.generators_list = generators_list;
+        this.generator_list = generator_list;
         
         this.update_notifier = update_notifier;
 
@@ -34,13 +36,13 @@ public class AddGeneratorButton extends Button
     // Add new generator
     private void onDialogSave()
     {
-        generators_list.add(dialog.createGenerator());
+        generator_list.add(dialog.createGenerator());
 
         update_notifier.run();
     }
 
-    private final ArrayList<Generator> generators_list;
+    private final ArrayList<Generator> generator_list;
     private GeneratorDialog dialog;
-    // Used to notify about changes to generators_list
+    // Used to notify about changes to generator_list
     private final Runnable update_notifier;
 }
