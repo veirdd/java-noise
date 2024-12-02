@@ -1,8 +1,13 @@
 package vrd.ui.gen_dialog;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,11 +37,28 @@ public class GeneratorDialog extends JDialog
 
         this.save_button = new Button("Save");
             this.save_button.setEnabled(false);
-            this.save_button.addActionListener((ActionEvent ignored)->
+            this.save_button.addActionListener((ActionEvent _)->
             { save(); });
 
-        this.main_panel = new JPanel();
-            this.main_panel.add(this.save_button);
+        this.algorithm_combo_box = new JComboBox<>(algorithm_list);
+
+        this.algorithm_label = new JLabel("Algorithm");
+
+        this.algorithm_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            this.algorithm_panel.add(this.algorithm_label);
+            this.algorithm_panel.add(this.algorithm_combo_box);
+
+        this.name_field = new JTextField(16);
+
+        this.name_label = new JLabel("Name");
+
+        this.name_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            this.name_panel.add(this.name_label);
+            this.name_panel.add(this.name_field);
+
+        this.main_panel = new JPanel(new BorderLayout());
+            this.main_panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            this.main_panel.add(this.name_panel);
 
         // Configure dialog
 
@@ -44,11 +66,12 @@ public class GeneratorDialog extends JDialog
         setLocationRelativeTo(null);
         setContentPane(this.main_panel);
         setResizable(false);
-        setVisible(true);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setTitle("Generator");
+        setVisible(true);
     }
 
-    public Generator createGenerator() // next: universal generator creation interface in dialog
+    public Generator createGenerator()
     {
         if(this.generator == null)
         { throw new IllegalStateException("The requested generator has not been formed"); }
@@ -70,13 +93,19 @@ public class GeneratorDialog extends JDialog
     private Generator generator;
 
     private JPanel main_panel;
-        private JLabel name_label;
-        private JTextField name_field;
-        private JLabel algorithm_label;
-        private JTextField algorithm_field;
+        private JPanel name_panel;
+            private JLabel name_label;
+            private JTextField name_field;
+        private JPanel algorithm_panel;
+            private JLabel algorithm_label;
+            private JComboBox<String> algorithm_combo_box;
         private JLabel properties_label;
         private AlgorithmPanel properties_panel;
-        private Button save_button;
+        private JPanel bottom_panel;
+            private JPanel blend_mode_panel;
+                private JLabel blend_mode_label;
+                private JTextField blend_mode_field;
+            private Button save_button;
     
     private static final int DIALOG_WIDTH = 600;
     private static final int DIALOG_HEIGHT = 400;

@@ -31,11 +31,11 @@ public class GeneratorTile extends JPanel
         this.generator = generator;
 
         this.up_button = new Button("⬆");
-            this.up_button.addActionListener((ActionEvent ignored)->
+            this.up_button.addActionListener((ActionEvent _)->
             { move_operation.request(Direction.Up); });
 
         this.down_button = new Button("⬇");
-            this.down_button.addActionListener((ActionEvent ignored)->
+            this.down_button.addActionListener((ActionEvent _)->
             { move_operation.request(Direction.Down); });
 
         this.modify_button = new Button("...");

@@ -19,7 +19,7 @@ public abstract class Noise implements Algorithm
     {
         return new Property[]
         {
-            new Property(this.scale, "Scale", Property.Constraint.None)
+            new FloatProperty(this.scale, "Scale")
         };
     }
 

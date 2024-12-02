@@ -14,7 +14,7 @@ public abstract class ConstantValue implements Algorithm
     @Override
     public Property[] getProperties()
     {
-        return new Property[]{new Property(this.value, "Value", Property.Constraint.None)};
+        return new Property[]{new FloatProperty(this.value, "Value")};
     }
 
     protected float value;

@@ -18,8 +18,8 @@ public class AlgorithmPanel extends ScrollPane
         for(Property property : properties)
         {
             label_list.add(new JLabel(property.name));
-            text_field_list.add(new JTextField()); 
-            // next
+            text_field_list.add(new JTextField());
+            // todo
         }
     }
 
