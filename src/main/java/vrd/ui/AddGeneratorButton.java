@@ -20,7 +20,7 @@ public class AddGeneratorButton extends Button
         
         this.update_notifier = update_notifier;
 
-        addActionListener((ActionEvent _)->
+        addActionListener((ActionEvent ignored)->
         { onClick(); });
     }
 

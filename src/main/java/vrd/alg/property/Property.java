@@ -1,8 +1,8 @@
-package vrd.alg;
+package vrd.alg.property;
 
 public abstract class Property
 {
-    public Property(float value, String name)
+    public Property(String name)
     {
         this.name = name;
     }

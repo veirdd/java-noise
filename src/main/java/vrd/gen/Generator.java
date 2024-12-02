@@ -9,6 +9,7 @@ public class Generator {
     {
         this.algorithm = algorithm;
         this.blend_mode = blend_mode;
+        this.name = "Generator";
     }
 
     public Content generate(int[] dimensions, int[] offset)
@@ -33,6 +34,7 @@ public class Generator {
 
     public final Algorithm algorithm;
     public final BlendMode blend_mode;
+    public String name;
 }
 
 

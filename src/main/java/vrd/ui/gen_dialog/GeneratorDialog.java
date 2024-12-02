@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -14,6 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import vrd.alg.Algorithm;
+import vrd.alg.AlgorithmList;
+import vrd.alg.ConstantValue;
 import vrd.alg.noise.PerlinNoise1d;
 import vrd.gen.BlendMode;
 import vrd.gen.Generator;
@@ -36,11 +40,11 @@ public class GeneratorDialog extends JDialog
         // Create interface
 
         this.save_button = new Button("Save");
-            this.save_button.setEnabled(false);
-            this.save_button.addActionListener((ActionEvent _)->
+            //this.save_button.setEnabled(false);//d
+            this.save_button.addActionListener((ActionEvent ignored)->
             { save(); });
 
-        this.algorithm_combo_box = new JComboBox<>(algorithm_list);
+        this.algorithm_combo_box = new JComboBox<>(AlgorithmList.getAlgorithmNames());// todo: better
 
         this.algorithm_label = new JLabel("Algorithm");
 
@@ -56,9 +60,12 @@ public class GeneratorDialog extends JDialog
             this.name_panel.add(this.name_label);
             this.name_panel.add(this.name_field);
 
-        this.main_panel = new JPanel(new BorderLayout());
+        this.main_panel = new JPanel();
+            this.main_panel.setLayout(new BoxLayout(this.main_panel, BoxLayout.Y_AXIS));
             this.main_panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             this.main_panel.add(this.name_panel);
+            this.main_panel.add(this.algorithm_panel);
+            this.main_panel.add(this.save_button);//d
 
         // Configure dialog
 
@@ -71,12 +78,19 @@ public class GeneratorDialog extends JDialog
         setVisible(true);
     }
 
-    public Generator createGenerator()
+    public Generator createGenerator()// todo: remove this and pass generator thru saveoperation
     {
-        if(this.generator == null)
-        { throw new IllegalStateException("The requested generator has not been formed"); }
+        Generator generator = new Generator(new ConstantValue(), BlendMode.Add);//d
+        generator.name = this.name_field.getText();//d
 
-        return this.generator;
+        return generator;
+
+        // todo: add this back
+        
+        // if(this.generator == null)
+        // { throw new IllegalStateException("The requested generator has not been formed"); }
+
+        // return this.generator;
     }
 
     private void save()

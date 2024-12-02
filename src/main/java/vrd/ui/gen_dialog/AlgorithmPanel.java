@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import vrd.alg.Property;
+import vrd.alg.property.Property;
 import vrd.ui.std.ScrollPane;
 
 public class AlgorithmPanel extends ScrollPane

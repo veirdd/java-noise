@@ -31,19 +31,19 @@ public class GeneratorTile extends JPanel
         this.generator = generator;
 
         this.up_button = new Button("⬆");
-            this.up_button.addActionListener((ActionEvent _)->
+            this.up_button.addActionListener((ActionEvent ignored)->
             { move_operation.request(Direction.Up); });
 
         this.down_button = new Button("⬇");
-            this.down_button.addActionListener((ActionEvent _)->
+            this.down_button.addActionListener((ActionEvent ignored)->
             { move_operation.request(Direction.Down); });
 
         this.modify_button = new Button("...");
 
-        this.name = new JLabel("hej");//d
-            this.name.setPreferredSize(modify_button.getPreferredSize());
+        this.name = new JLabel(generator.name);//d todo: is this fine idk
 
         this.left_panel = new JPanel();
+            this.left_panel.setMinimumSize(this.name.getPreferredSize()); // todo: why tf is the label elevated
             this.left_panel.add(this.name);
 
         this.right_panel = new JPanel();

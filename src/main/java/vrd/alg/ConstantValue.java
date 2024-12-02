@@ -1,6 +1,9 @@
 package vrd.alg;
 
-public abstract class ConstantValue implements Algorithm
+import vrd.alg.property.FloatProperty;
+import vrd.alg.property.Property;
+
+public class ConstantValue implements Algorithm
 {
     @Override
     public float get(int[] pos)
@@ -12,9 +15,16 @@ public abstract class ConstantValue implements Algorithm
     }
 
     @Override
+    public int getDimensionality()
+    { return 0; }
+
+    @Override
     public Property[] getProperties()
     {
-        return new Property[]{new FloatProperty(this.value, "Value")};
+        return new Property[]
+        {
+            new FloatProperty(this.value, "Value")
+        };
     }
 
     protected float value;

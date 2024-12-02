@@ -57,7 +57,7 @@ public class GeneratorPanel extends ScrollPane
 
         this.panel.add(this.plus);
 
-        this.panel.revalidate();
+        this.panel.revalidate();// todo: is this necessary
     }
 
     private void moveTile(int index, MoveTileOperation.Direction direction)
