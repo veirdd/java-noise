@@ -5,18 +5,20 @@ import vrd.alg.property.Property;
 
 public class ConstantValue implements Algorithm
 {
+    public ConstantValue() {}
+
+    public ConstantValue(int value)
+    { this.value = value; }
+
     @Override
     public float get(int[] pos)
-    {
-        if(pos.length != this.getDimensionality())
-        { throw new IllegalArgumentException("Invalid dimensionality of position"); }
-
-        return 0;
-    }
+    { return this.value; }
 
     @Override
-    public int getDimensionality()
-    { return 0; }
+    public Signature getSignature()
+    {
+        return new Signature(SignatureList.Id.ConstantValue, "ConstantValue", 0);
+    }
 
     @Override
     public Property[] getProperties()
@@ -27,5 +29,5 @@ public class ConstantValue implements Algorithm
         };
     }
 
-    protected float value;
+    private float value;
 }

@@ -7,7 +7,6 @@ import java.util.Collections;
 import javax.swing.Box;
 
 import vrd.gen.Generator;
-import vrd.ui.GeneratorTile.ButtonName;
 import vrd.ui.std.Button;
 import vrd.ui.std.ScrollPane;
 
@@ -17,8 +16,11 @@ public class GeneratorPanel extends ScrollPane
     {        
         this.generator_list = generator_list;
 
-        this.plus = new AddGeneratorButton("+", this.generator_list, ()->
-        { updateComponents(); });
+        this.plus = new AddGeneratorButton(
+            "+", 
+            this.generator_list, 
+            ()->
+            { updateComponents(); });
             this.plus.setAlignmentX(LEFT_ALIGNMENT);
 
         updateComponents();
@@ -33,22 +35,26 @@ public class GeneratorPanel extends ScrollPane
             final int I = i;
 
             GeneratorTile gen_tile = new GeneratorTile(
-                this.generator_list.get(i), 
+                this.generator_list.get(i),
                 (MoveTileOperation.Direction direction)->
-                { moveTile(I, direction); });
+                { moveTile(I, direction); },
+                ()->
+                { removeTile(I); },
+                ()->
+                { updateComponents(); });
 
             gen_tile.setAlignmentX(LEFT_ALIGNMENT);
 
             // Disable move buttons
             if(this.generator_list.size() == 1)
             {
-                gen_tile.setButtonEnabled(ButtonName.Up, false);
-                gen_tile.setButtonEnabled(ButtonName.Down, false);
+                gen_tile.setDirectionEnabled(MoveTileOperation.Direction.Up, false);
+                gen_tile.setDirectionEnabled(MoveTileOperation.Direction.Down, false);
             }
             else if(i == 0)
-            { gen_tile.setButtonEnabled(ButtonName.Up, false); }
+            { gen_tile.setDirectionEnabled(MoveTileOperation.Direction.Up, false); }
             else if(i == this.generator_list.size() - 1)
-            { gen_tile.setButtonEnabled(ButtonName.Down, false);}
+            { gen_tile.setDirectionEnabled(MoveTileOperation.Direction.Down, false);}
 
             this.panel.add(gen_tile);
 
@@ -57,7 +63,9 @@ public class GeneratorPanel extends ScrollPane
 
         this.panel.add(this.plus);
 
-        this.panel.revalidate();// todo: is this necessary
+        // Java shits itself in amusing ways if we don't call these
+        this.panel.repaint();
+        this.panel.revalidate();
     }
 
     private void moveTile(int index, MoveTileOperation.Direction direction)
@@ -66,6 +74,13 @@ public class GeneratorPanel extends ScrollPane
         { Collections.swap(this.generator_list, index, index - 1); }
         else
         { Collections.swap(this.generator_list, index, index + 1); }
+
+        updateComponents();
+    }
+
+    private void removeTile(int index)
+    {
+        this.generator_list.remove(index);
 
         updateComponents();
     }

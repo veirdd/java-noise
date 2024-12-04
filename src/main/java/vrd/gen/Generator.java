@@ -9,14 +9,15 @@ public class Generator {
     {
         this.algorithm = algorithm;
         this.blend_mode = blend_mode;
-        this.name = "Generator";
+        // Set default name from algorithm's signature
+        this.name = algorithm.getSignature().name;
     }
 
     public Content generate(int[] dimensions, int[] offset)
     {
         // Validate dimensionality of arguments
-        if(dimensions.length != algorithm.getDimensionality() ||
-           offset.length != algorithm.getDimensionality())
+        if(dimensions.length != algorithm.getSignature().dimensionality ||
+           offset.length != algorithm.getSignature().dimensionality)
         { throw new IllegalArgumentException("Invalid dimensionality of arguments"); }
 
         Content content = new Content(dimensions);
@@ -32,8 +33,8 @@ public class Generator {
         return content;
     }
 
-    public final Algorithm algorithm;
-    public final BlendMode blend_mode;
+    public Algorithm algorithm;
+    public BlendMode blend_mode;
     public String name;
 }
 

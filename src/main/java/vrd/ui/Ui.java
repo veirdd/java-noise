@@ -26,7 +26,7 @@ public class Ui
 
         this.generators_panel = new GeneratorPanel(generator_list);
             generators_panel.setBorder(BorderFactory.createBevelBorder(0));
-            generators_panel.setPreferredSize(new Dimension(300, FRAME_HEIGHT));
+            generators_panel.setPreferredSize(new Dimension(500, FRAME_HEIGHT));
 
         this.control_panel = new JPanel(new BorderLayout());
             control_panel.setPreferredSize(new Dimension(FRAME_WIDTH, 300));

@@ -9,8 +9,8 @@ public abstract class Noise implements Algorithm
     @Override
     public float get(int[] pos)
     {
-        // Dimensionality 0 is universal
-        if(pos.length != this.getDimensionality() && this.getDimensionality() != 0)
+        // Check for dimensionality and make dimensionality = 0 universal
+        if(pos.length != this.getSignature().dimensionality && this.getSignature().dimensionality != 0)
         { throw new IllegalArgumentException("Invalid dimensionality of position"); }
 
         return algorithm(pos);

@@ -1,9 +1,7 @@
 package vrd.ui.gen_dialog;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
@@ -16,35 +14,28 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import vrd.alg.Algorithm;
-import vrd.alg.AlgorithmList;
-import vrd.alg.ConstantValue;
-import vrd.alg.noise.PerlinNoise1d;
+import vrd.alg.SignatureList;
 import vrd.gen.BlendMode;
 import vrd.gen.Generator;
 import vrd.ui.std.Button;
 
 public class GeneratorDialog extends JDialog
-// todo: this should only be responsible for getting properties for a generator from user
-// and creating said generator object
-// no methods for adding to generatorspanel or such (so that this can be used for modifying existing generators)
-
-// todo: my brain is melting  idk how to 'notify' generatorspanel that the generator is created so that it can allocate it
-// maybe analyze generatorspanel
 {
-    public GeneratorDialog(JFrame frame, Runnable save_operation)
+    public GeneratorDialog(
+        JFrame frame, 
+        Generator generator, 
+        SaveOperation save_operation)
     {
         super(frame);
 
         this.save_operation = save_operation;
 
         // Create interface
-
         this.save_button = new Button("Save");
-            //this.save_button.setEnabled(false);//d
-            this.save_button.addActionListener((ActionEvent ignored)->
+            this.save_button.addActionListener((ActionEvent _)->
             { save(); });
 
-        this.algorithm_combo_box = new JComboBox<>(AlgorithmList.getAlgorithmNames());// todo: better
+        this.algorithm_combo_box = new JComboBox<>(SignatureList.getAlgorithmNames());
 
         this.algorithm_label = new JLabel("Algorithm");
 
@@ -67,6 +58,14 @@ public class GeneratorDialog extends JDialog
             this.main_panel.add(this.algorithm_panel);
             this.main_panel.add(this.save_button);//d
 
+        // Import generator data
+
+        if(generator != null)
+        { 
+            this.algorithm_combo_box.setSelectedItem(generator.algorithm.getSignature().name);
+            this.name_field.setText(generator.name);
+        }
+
         // Configure dialog
 
         setSize(new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT));
@@ -75,22 +74,8 @@ public class GeneratorDialog extends JDialog
         setResizable(false);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle("Generator");
+        getRootPane().setDefaultButton(save_button);
         setVisible(true);
-    }
-
-    public Generator createGenerator()// todo: remove this and pass generator thru saveoperation
-    {
-        Generator generator = new Generator(new ConstantValue(), BlendMode.Add);//d
-        generator.name = this.name_field.getText();//d
-
-        return generator;
-
-        // todo: add this back
-        
-        // if(this.generator == null)
-        // { throw new IllegalStateException("The requested generator has not been formed"); }
-
-        // return this.generator;
     }
 
     private void save()
@@ -98,13 +83,23 @@ public class GeneratorDialog extends JDialog
         // Close the dialog
         dispose();
 
-        save_operation.run();
+        Algorithm selected_algorithm = SignatureList.makeAlgorithmFromId(
+            SignatureList.Id.values()[this.algorithm_combo_box.getSelectedIndex()]);
+        BlendMode selected_blend_mode = BlendMode.Add;//d
+
+        // Create the generator
+
+        Generator generator = new Generator(selected_algorithm, selected_blend_mode);//d
+
+        if(!this.name_field.getText().equals(""))
+        { generator.name = this.name_field.getText();}
+
+        //
+
+        save_operation.run(generator);
     }
 
-    private final Runnable save_operation;
-
-    // The generator this dialog creates
-    private Generator generator;
+    private final SaveOperation save_operation;
 
     private JPanel main_panel;
         private JPanel name_panel;
@@ -113,12 +108,12 @@ public class GeneratorDialog extends JDialog
         private JPanel algorithm_panel;
             private JLabel algorithm_label;
             private JComboBox<String> algorithm_combo_box;
-        private JLabel properties_label;
-        private AlgorithmPanel properties_panel;
-        private JPanel bottom_panel;
-            private JPanel blend_mode_panel;
-                private JLabel blend_mode_label;
-                private JTextField blend_mode_field;
+        // private JLabel properties_label;
+        // private AlgorithmPanel properties_panel;
+        // private JPanel bottom_panel;
+        //     private JPanel blend_mode_panel;
+        //         private JLabel blend_mode_label;
+        //         private JTextField blend_mode_field;
             private Button save_button;
     
     private static final int DIALOG_WIDTH = 600;

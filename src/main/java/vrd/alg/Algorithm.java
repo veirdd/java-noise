@@ -6,8 +6,6 @@ public interface Algorithm
 {
     public float get(int[] pos);
 
+    public Signature getSignature();
     public Property[] getProperties();
-
-    // Similar to number of arguments in a function
-    public int getDimensionality();
 }
