@@ -2,6 +2,7 @@ package vrd.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
@@ -29,8 +30,19 @@ public class GeneratorTile extends JPanel
         setLayout(new BorderLayout());
         
         this.generator = generator;
-
+        this.enabled = this.generator.enabled;
         this.update_notifier = update_notifier;
+
+        this.power_button = new Button("OFF");
+            this.power_button.addActionListener((ActionEvent _)->
+            { switchEnabled(); });
+            // Visual
+            this.power_button.setMargin(new Insets(
+                this.power_button.getMargin().top, 0, 
+                this.power_button.getMargin().bottom, 0));
+            this.power_button.setPreferredSize(new Dimension(
+                (int)(this.power_button.getPreferredSize().height * 2), 
+                this.power_button.getPreferredSize().height));
 
         this.up_button = new Button("⬆");
             this.up_button.addActionListener((ActionEvent _)->
@@ -48,14 +60,15 @@ public class GeneratorTile extends JPanel
             this.remove_button.addActionListener((ActionEvent _)->
             { remove_operation.run(); });
         
-        this.name = new JLabel(this.generator.name);
-            this.name.setPreferredSize(new Dimension(100, this.modify_button.getPreferredSize().height));
+        this.name_label = new JLabel(this.generator.name);
+            this.name_label.setPreferredSize(new Dimension(100, this.modify_button.getPreferredSize().height));
 
         this.left_panel = new JPanel();
-            this.left_panel.setMinimumSize(this.name.getPreferredSize());
-            this.left_panel.add(this.name);
+            this.left_panel.setMinimumSize(this.name_label.getPreferredSize());
+            this.left_panel.add(this.name_label);
 
         this.right_panel = new JPanel();
+            this.right_panel.add(this.power_button);
             this.right_panel.add(this.up_button);
             this.right_panel.add(this.down_button);
             this.right_panel.add(this.modify_button);
@@ -63,6 +76,8 @@ public class GeneratorTile extends JPanel
 
         this.add(this.left_panel, BorderLayout.WEST);
         this.add(this.right_panel, BorderLayout.EAST);
+
+        setEnabled(this.generator.enabled);
     }
 
     public void setDirectionEnabled(Direction direction, boolean enabled)
@@ -71,6 +86,37 @@ public class GeneratorTile extends JPanel
         { this.up_button.setEnabled(enabled); }
         else
         { this.down_button.setEnabled(enabled); }
+    }
+
+    public void setEnabled(boolean state)
+    {
+        if(state)
+        {
+            this.power_button.setText("OFF");
+            this.name_label.setEnabled(true);
+            this.generator.enabled = true;
+
+            this.enabled = true;
+        }
+        else
+        {
+            this.power_button.setText("ON");
+            this.name_label.setEnabled(false);
+            this.generator.enabled = false;
+
+            this.enabled = false;
+        }
+    }
+
+    public boolean isEnabled()
+    { return this.enabled; }
+
+    private void switchEnabled()
+    {
+        if(this.enabled)
+        { setEnabled(false); }
+        else
+        { setEnabled(true); }
     }
 
     private void openDialog()// todo: the same method is in addgenbutton so put them both in gendialog (it has to be not null in cosntructor then)
@@ -87,23 +133,25 @@ public class GeneratorTile extends JPanel
 
     private void onDialogSave(Generator generator)
     {
-        // can't just assign the whole generator at once because it's f java ofc
+        // can't just reassign the generator because it's f java ofc
         this.generator.algorithm = generator.algorithm;
         this.generator.name = generator.name;
 
         this.update_notifier.run();
     }
 
+    private Generator generator;
+    private GeneratorDialog dialog;
+    // Used to notify about changes to generator_list
+    private boolean enabled;
+    private final Runnable update_notifier;
+
     private JPanel left_panel;
-        private JLabel name;
+        private JLabel name_label;
     private JPanel right_panel;
+        private Button power_button;
         private Button up_button;
         private Button down_button;
         private Button modify_button;
         private Button remove_button;
-
-    private Generator generator;
-    private GeneratorDialog dialog;
-    // Used to notify about changes to generator_list
-    private final Runnable update_notifier;
 }

@@ -1,5 +1,6 @@
 package vrd.ui.gen_dialog;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -34,6 +35,12 @@ public class GeneratorDialog extends JDialog
         this.save_button = new Button("Save");
             this.save_button.addActionListener((ActionEvent _)->
             { save(); });
+
+        // this.blend_mode_label = new JLabel("Blend mode");
+
+        // this.bottom_panel = new JPanel(new BorderLayout());
+
+        // this.properties_panel = new AlgorithmPanel(generator.algorithm.getProperties());
 
         this.algorithm_combo_box = new JComboBox<>(SignatureList.getAlgorithmNames());
 
@@ -105,15 +112,14 @@ public class GeneratorDialog extends JDialog
         private JPanel name_panel;
             private JLabel name_label;
             private JTextField name_field;
-        private JPanel algorithm_panel;
+        private JPanel algorithm_panel; 
             private JLabel algorithm_label;
             private JComboBox<String> algorithm_combo_box;
-        // private JLabel properties_label;
-        // private AlgorithmPanel properties_panel;
-        // private JPanel bottom_panel;
-        //     private JPanel blend_mode_panel;
-        //         private JLabel blend_mode_label;
-        //         private JTextField blend_mode_field;
+        private AlgorithmPanel properties_panel;
+        private JPanel bottom_panel;
+            private JPanel blend_mode_panel;
+                private JLabel blend_mode_label;
+                private JComboBox<String> blend_mode_combo_box;
             private Button save_button;
     
     private static final int DIALOG_WIDTH = 600;
