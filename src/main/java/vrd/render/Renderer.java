@@ -3,11 +3,11 @@ package vrd.render;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.swing.JPanel;
+import vrd.ui.std.Panel;
 
 import vrd.util.Content;
 
-public class Renderer extends JPanel
+public class Renderer extends Panel
 {
     public Renderer() // todo: maybe add a way to change interpreter
     {

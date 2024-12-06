@@ -1,13 +1,12 @@
 package vrd.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import vrd.ui.std.Panel;
 
 import vrd.gen.Generator;
 import vrd.render.Renderer;
@@ -16,13 +15,13 @@ import vrd.ui.std.Style;
 
 public class Ui
 {
-    public void init(ArrayList<Generator> generator_list)
+    public void init(ArrayList<Generator> generator_list) // todo: add Generators label above generator panel
     {
         // Arrange panels to structurize UI
 
         this.apply_button = new Button("Apply");//d
 
-        this.middle_panel = new JPanel(new BorderLayout());
+        this.middle_panel = new Panel(new BorderLayout());
             middle_panel.setBorder(Style.empty_border);
             middle_panel.add(this.apply_button, BorderLayout.CENTER);
 
@@ -30,7 +29,7 @@ public class Ui
             generator_panel.setBorder(BorderFactory.createEtchedBorder());
             generator_panel.setPreferredSize(new Dimension(500, FRAME_HEIGHT));
 
-        this.control_panel = new JPanel(new BorderLayout());
+        this.control_panel = new Panel(new BorderLayout());
             control_panel.setPreferredSize(new Dimension(FRAME_WIDTH, 300));
             control_panel.setBorder(Style.empty_border);
             control_panel.add(this.generator_panel, BorderLayout.WEST);
@@ -38,11 +37,11 @@ public class Ui
             
         this.renderer = new Renderer();
 
-        this.render_panel = new JPanel(new BorderLayout());
+        this.render_panel = new Panel(new BorderLayout());
             render_panel.setBorder(Style.empty_border);
             render_panel.add(this.renderer, BorderLayout.CENTER);
 
-        this.main_panel = new JPanel(new BorderLayout());
+        this.main_panel = new Panel(new BorderLayout());
             main_panel.add(this.render_panel, BorderLayout.CENTER);
             main_panel.add(this.control_panel, BorderLayout.SOUTH);
 
@@ -57,12 +56,12 @@ public class Ui
     }
 
     public JFrame frame;
-    private JPanel main_panel;
-        private JPanel render_panel;
+    private Panel main_panel;
+        private Panel render_panel;
             private Renderer renderer;
-        private JPanel control_panel;
+        private Panel control_panel;
             private GeneratorPanel generator_panel;
-            private JPanel middle_panel;
+            private Panel middle_panel;
                 private Button apply_button;
 
     private static final int FRAME_WIDTH = 1200;

@@ -23,6 +23,7 @@ public abstract class Algorithm
     
     public abstract Signature getSignature();
     public abstract Property[] getProperties();
+    public abstract void setProperties(Property[] properties);
 
     protected abstract float algorithm(int[] pos);
 }

@@ -3,7 +3,7 @@ package vrd.alg.property;
 // Property of an Algorithm that may vary across instances
 public abstract class Property
 {
-    public enum ValueType // todo: this may be a bit shit
+    public enum ValueType // todo: this may be a bit ass
     {
         Float
     }

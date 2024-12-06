@@ -1,7 +1,5 @@
 package vrd.ui;
 
-import java.awt.Dimension;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 

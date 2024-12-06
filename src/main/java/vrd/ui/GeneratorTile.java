@@ -1,7 +1,6 @@
 package vrd.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -9,7 +8,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import vrd.ui.std.Panel;
 import javax.swing.SwingUtilities;
 
 import vrd.gen.Generator;
@@ -18,7 +17,7 @@ import vrd.ui.gen_dialog.GeneratorDialog;
 import vrd.ui.std.Button;
 import vrd.ui.std.Style;
 
-public class GeneratorTile extends JPanel
+public class GeneratorTile extends Panel
 {
     // todo: delete button for generator lmao there's none
     public GeneratorTile(
@@ -39,7 +38,7 @@ public class GeneratorTile extends JPanel
             this.power_button.addActionListener((ActionEvent _)->
             { switchEnabled(); });
             // Visual
-            this.power_button.setBackground(new Color(200, 255, 200));
+            this.power_button.setBackground(Style.good_color);
             this.power_button.setMargin(new Insets(
                 this.power_button.getMargin().top, 0, 
                 this.power_button.getMargin().bottom, 0));
@@ -66,11 +65,11 @@ public class GeneratorTile extends JPanel
         this.name_label = new JLabel(this.generator.name);
             this.name_label.setPreferredSize(new Dimension(100, this.modify_button.getPreferredSize().height));
 
-        this.left_panel = new JPanel();
+        this.left_panel = new Panel();
             this.left_panel.setMinimumSize(this.name_label.getPreferredSize());
             this.left_panel.add(this.name_label);
 
-        this.right_panel = new JPanel();
+        this.right_panel = new Panel();
             this.right_panel.add(this.power_button);
             this.right_panel.add(this.up_button);
             this.right_panel.add(this.down_button);
@@ -96,7 +95,7 @@ public class GeneratorTile extends JPanel
         if(enabled)
         {
             this.power_button.setText("OFF");
-            this.power_button.setBackground(new Color(200, 255, 200));
+            this.power_button.setBackground(Style.good_color);
             this.name_label.setEnabled(true);
             this.generator.enabled = true;
 
@@ -105,7 +104,7 @@ public class GeneratorTile extends JPanel
         else
         {
             this.power_button.setText("ON");
-            this.power_button.setBackground(new Color(255, 200, 200));
+            this.power_button.setBackground(Style.bad_color);
             this.name_label.setEnabled(false);
             this.generator.enabled = false;
 
@@ -140,7 +139,9 @@ public class GeneratorTile extends JPanel
     {
         // can't just reassign the generator because it's f java ofc
         this.generator.algorithm = generator.algorithm;
+        this.generator.blend_mode = generator.blend_mode;
         this.generator.name = generator.name;
+        this.generator.enabled = generator.enabled;
 
         this.update_notifier.run();
     }
@@ -151,9 +152,9 @@ public class GeneratorTile extends JPanel
     private boolean enabled;
     private final Runnable update_notifier;
 
-    private JPanel left_panel;
+    private Panel left_panel;
         private JLabel name_label;
-    private JPanel right_panel;
+    private Panel right_panel;
         private Button power_button;
         private Button up_button;
         private Button down_button;

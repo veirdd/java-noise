@@ -1,7 +1,6 @@
 package vrd.alg;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import vrd.alg.noise.PerlinNoise1d;
@@ -26,7 +25,7 @@ public class SignatureList
     {
         ArrayList<String> names_list = new ArrayList<>();
 
-        for(Algorithm algorithm : algorithm_list)
+        for(Algorithm algorithm : algorithmList())
         {
             // Returns all algorithms if dimensionality = 0
             if(dimensionality == 0 || 
@@ -40,20 +39,24 @@ public class SignatureList
 
     public static Algorithm makeAlgorithmFromId(Id id)
     {
-        for(Algorithm algorithm : algorithm_list)
+        for(Algorithm algorithm : algorithmList())
         {
             if(algorithm.getSignature().id == id)
-            { return algorithm; } // todo: is this cloned ffs java
+            { return algorithm; }
         }
         
         throw new IllegalArgumentException("No algorithm with ID '" + id.toString() + "' was found");
     }
 
     // List of Algorithms that should be included in runtime
-    private static final List<Algorithm> algorithm_list = Collections.unmodifiableList(List.of
-    (
-        new ConstantValue(),
-        new PerlinNoise1d(),
-        new PerlinNoise2d()// showcase
-    ));
+    private static List<Algorithm> algorithmList()
+    {
+        return List.of
+        (
+            // Should be same order as Id
+            new ConstantValue(),
+            new PerlinNoise1d(),
+            new PerlinNoise2d()// showcase
+        );
+    }
 }

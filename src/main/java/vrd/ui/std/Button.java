@@ -1,7 +1,6 @@
 package vrd.ui.std;
 
 import javax.swing.JButton;
-import java.awt.Color;
 
 public class Button extends JButton
 {

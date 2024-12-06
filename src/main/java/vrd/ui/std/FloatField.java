@@ -6,24 +6,29 @@ import javax.swing.JTextField;
 
 public class FloatField extends JTextField
 {
-    public FloatField()
+    public FloatField(float initial_value)
     {
         setColumns(Style.text_field_size);
+        setText(Float.toString(initial_value));
 
         addActionListener((ActionEvent _)->
-        { verifyContent(); });
+        { validateInput(); });
     }
 
-    public boolean verifyContent()
+    public float getValue()
+    {
+        if(validateInput())
+        { return Float.parseFloat(this.getText()); }
+        else
+        { throw new IllegalStateException("Value of FloatField accessed without validation"); }
+    }
+
+    public boolean validateInput()
     {
         try
         { Float.parseFloat(this.getText()); }
         catch(NumberFormatException _)
-        {
-            this.setText("");
-
-            return false;
-        }
+        { return false; }
 
         return true;
     }

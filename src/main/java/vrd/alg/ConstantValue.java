@@ -5,7 +5,15 @@ import vrd.alg.property.Property;
 
 public class ConstantValue extends Algorithm
 {
-    public ConstantValue() {}
+    private enum PropertyId
+    {
+        Value
+    }
+
+    public ConstantValue()
+    {
+        this.value = 0;
+    }
 
     public ConstantValue(int value)
     { this.value = value; }
@@ -16,9 +24,7 @@ public class ConstantValue extends Algorithm
 
     @Override
     public Signature getSignature()
-    {
-        return new Signature(SignatureList.Id.ConstantValue, "ConstantValue", 0);
-    }
+    { return new Signature(SignatureList.Id.ConstantValue, "ConstantValue", 0); }
 
     @Override
     public Property[] getProperties()
@@ -28,6 +34,10 @@ public class ConstantValue extends Algorithm
             new FloatProperty(this.value, "Value")
         };
     }
+
+    @Override
+    public void setProperties(Property[] properties)
+    { this.value = ((FloatProperty)properties[PropertyId.Value.ordinal()]).value; }
 
     private float value;
 }
