@@ -1,6 +1,7 @@
 package vrd.ui.std;
 
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class Button extends JButton
 {
@@ -9,5 +10,17 @@ public class Button extends JButton
         super(text);
 
         setFocusable(false);
+        setBackground(Style.enabled_color);
+    }
+
+    @Override
+    public void setEnabled(boolean enabled)
+    {
+        super.setEnabled(enabled);
+
+        if(enabled)
+        { setBackground(Style.enabled_color); }
+        else
+        { setBackground(Style.disabled_color); }
     }
 }

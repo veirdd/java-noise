@@ -3,7 +3,7 @@ package vrd.alg;
 import vrd.alg.property.FloatProperty;
 import vrd.alg.property.Property;
 
-public class ConstantValue implements Algorithm
+public class ConstantValue extends Algorithm
 {
     public ConstantValue() {}
 
@@ -11,7 +11,7 @@ public class ConstantValue implements Algorithm
     { this.value = value; }
 
     @Override
-    public float get(int[] pos)
+    public float algorithm(int[] pos)
     { return this.value; }
 
     @Override

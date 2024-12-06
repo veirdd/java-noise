@@ -48,11 +48,6 @@ public class SignatureList
         
         throw new IllegalArgumentException("No algorithm with ID '" + id.toString() + "' was found");
     }
-    
-    public static boolean validateDimensionality(int dimensionality, Algorithm algorithm)// todo make this function and put it in a different file
-    {
-
-    }
 
     // List of Algorithms that should be included in runtime
     private static final List<Algorithm> algorithm_list = Collections.unmodifiableList(List.of

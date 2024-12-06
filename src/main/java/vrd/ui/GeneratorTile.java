@@ -1,6 +1,7 @@
 package vrd.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,7 @@ import vrd.gen.Generator;
 import vrd.ui.MoveTileOperation.Direction;
 import vrd.ui.gen_dialog.GeneratorDialog;
 import vrd.ui.std.Button;
+import vrd.ui.std.Style;
 
 public class GeneratorTile extends JPanel
 {
@@ -37,6 +39,7 @@ public class GeneratorTile extends JPanel
             this.power_button.addActionListener((ActionEvent _)->
             { switchEnabled(); });
             // Visual
+            this.power_button.setBackground(new Color(200, 255, 200));
             this.power_button.setMargin(new Insets(
                 this.power_button.getMargin().top, 0, 
                 this.power_button.getMargin().bottom, 0));
@@ -44,11 +47,11 @@ public class GeneratorTile extends JPanel
                 (int)(this.power_button.getPreferredSize().height * 2), 
                 this.power_button.getPreferredSize().height));
 
-        this.up_button = new Button("⬆");
+        this.up_button = new Button("↑");
             this.up_button.addActionListener((ActionEvent _)->
             { move_operation.request(Direction.Up); });
 
-        this.down_button = new Button("⬇");
+        this.down_button = new Button("↓");
             this.down_button.addActionListener((ActionEvent _)->
             { move_operation.request(Direction.Down); });
 
@@ -88,11 +91,12 @@ public class GeneratorTile extends JPanel
         { this.down_button.setEnabled(enabled); }
     }
 
-    public void setEnabled(boolean state)
+    public void setEnabled(boolean enabled)
     {
-        if(state)
+        if(enabled)
         {
             this.power_button.setText("OFF");
+            this.power_button.setBackground(new Color(200, 255, 200));
             this.name_label.setEnabled(true);
             this.generator.enabled = true;
 
@@ -101,6 +105,7 @@ public class GeneratorTile extends JPanel
         else
         {
             this.power_button.setText("ON");
+            this.power_button.setBackground(new Color(255, 200, 200));
             this.name_label.setEnabled(false);
             this.generator.enabled = false;
 

@@ -14,12 +14,11 @@ public class Generator {
         this.enabled = true;
     }
 
-    public Content generate(int[] dimensions, int[] offset) throws
+    public Content generate(int[] dimensions, int[] offset)
     {
-        // Validate dimensionality of arguments
-        if(dimensions.length != algorithm.getSignature().dimensionality ||todo
-           offset.length != algorithm.getSignature().dimensionality)todo
-        { throw new IllegalArgumentException("Dimensionality of arguments mismatch"); }todo
+        // Check if argument dimensionalities match
+        if(dimensions.length != offset.length)
+        { throw new IllegalArgumentException("Arguments' dimensionalities mismatch"); }
 
         Content content = new Content(dimensions);
 
@@ -42,3 +41,4 @@ public class Generator {
 
 
 // maybe: generate the whole content with offset on each update (scale, move, reseed) instead of getting single values every frame
+// todo: throw correctness for all functions

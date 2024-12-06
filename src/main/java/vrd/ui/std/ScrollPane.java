@@ -1,7 +1,10 @@
 package vrd.ui.std;
 
+import java.awt.Component;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -13,7 +16,7 @@ public class ScrollPane extends JScrollPane
 
         this.panel = new JPanel();
             this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
-            this.panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            this.panel.setBorder(Style.empty_border);
             setViewportView(this.panel);
 
         getVerticalScrollBar().setUnitIncrement(5);

@@ -4,7 +4,7 @@ public class FloatProperty extends Property
 {
     public FloatProperty(float value, String name)
     {
-        super(name);
+        super(ValueType.Float, name);
 
         this.value = value;
     }
