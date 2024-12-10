@@ -17,9 +17,11 @@ public class FloatPropertyCell extends PropertyCell
         add(value_field);
     }
 
+    @Override
     public Property getProperty()
     { return new FloatProperty(((FloatField)this.value_field).getValue(), this.name_label.getName()); }
 
+    @Override
     public boolean validateInput()
     {
         boolean valid = ((FloatField)this.value_field).validateInput();

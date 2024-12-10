@@ -33,9 +33,21 @@ public class Generator {
         return content;
     }
 
+    @Override
+    public String toString()
+    {
+        return
+            "[ " +
+            " Name: " + name +
+            " Algorithm: " + algorithm.getSignature().name +
+            " Blend mode: " + blend_mode.name() +
+            " Enabled: " + Boolean.toString(enabled) +
+            " ]";
+    }
+
+    public String name;
     public Algorithm algorithm;
     public BlendMode blend_mode;
-    public String name;
     public boolean enabled;
 }
 

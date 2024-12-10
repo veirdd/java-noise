@@ -2,32 +2,40 @@ package vrd.ui.gen_dialog.property;
 
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
+
+import vrd.alg.property.UIntProperty;
 import vrd.alg.property.FloatProperty;
 import vrd.alg.property.Property;
-import vrd.ui.std.ScrollPane;
+import vrd.ui.std.Panel;
 
-public class PropertyPanel extends ScrollPane
+public class PropertyPanel extends Panel
 {
     public PropertyPanel()
     {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
         cell_list = new ArrayList<>();
     }
 
     public PropertyPanel(Property[] properties)
     {
         this();
-        updateProperties(properties);
+        setProperties(properties);
     }
 
-    public void updateProperties(Property[] properties)
+    public void setProperties(Property[] properties)
     {
-        this.panel.removeAll();
+        removeAll();
         cell_list.clear();
 
         for(Property property : properties)
         {
             switch(property.value_type) // todo: switch bad (look at how it was solved with algs maybe)
             {
+                case UInt:
+                    cell_list.add(new UIntPropertyCell((UIntProperty)property));
+                    break;
                 case Float:
                     cell_list.add(new FloatPropertyCell((FloatProperty)property));
                     break;
@@ -35,10 +43,10 @@ public class PropertyPanel extends ScrollPane
         }
 
         for(PropertyCell property_cell : cell_list)
-        { this.panel.add(property_cell); }
+        { add(property_cell); }
         
-        this.panel.repaint();
-        this.panel.revalidate();
+        repaint();
+        revalidate();
     }
 
     public Property[] getProperties()

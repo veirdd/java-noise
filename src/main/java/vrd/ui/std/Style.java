@@ -15,5 +15,7 @@ public class Style
 
     public static final int text_field_size = 16;
 
-    public static final Border empty_border = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+    public static final int empty_border_thickness = 10;
+    public static final Border empty_border = BorderFactory.createEmptyBorder(empty_border_thickness, empty_border_thickness, empty_border_thickness, empty_border_thickness);
+    public static final Border etched_border = BorderFactory.createEtchedBorder();
 }

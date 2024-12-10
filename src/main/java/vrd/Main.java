@@ -5,19 +5,21 @@ import java.util.ArrayList;
 import javax.swing.SwingUtilities;
 
 import vrd.gen.Generator;
+import vrd.render.Renderer;
 import vrd.ui.Ui;
 
 class Main
 {
     public static void main(String[] args)
     {
-        Ui ui = new Ui();
         ArrayList<Generator> generator_list = new ArrayList<>();
+        Renderer renderer = new Renderer();
+
+        // Generator -> Content -> Renderer -> Canvas
 
         // Run AWT Component operations in ED thread
         SwingUtilities.invokeLater(()->
-        {
-            ui.init(generator_list);
-        });
+        { Ui _ = new Ui(generator_list, renderer); });
+
     }
 }

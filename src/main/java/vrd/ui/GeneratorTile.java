@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import vrd.ui.std.Panel;
@@ -27,14 +26,14 @@ public class GeneratorTile extends Panel
         Runnable update_notifier)
     {
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        setBorder(BorderFactory.createEtchedBorder());
+        setBorder(Style.etched_border);
         setLayout(new BorderLayout());
         
         this.generator = generator;
         this.enabled = this.generator.enabled;
         this.update_notifier = update_notifier;
 
-        this.power_button = new Button("OFF");
+        this.power_button = new Button("ON");
             this.power_button.addActionListener((ActionEvent _)->
             { switchEnabled(); });
             // Visual
@@ -94,7 +93,7 @@ public class GeneratorTile extends Panel
     {
         if(enabled)
         {
-            this.power_button.setText("OFF");
+            this.power_button.setText("ON");
             this.power_button.setBackground(Style.good_color);
             this.name_label.setEnabled(true);
             this.generator.enabled = true;
@@ -103,7 +102,7 @@ public class GeneratorTile extends Panel
         }
         else
         {
-            this.power_button.setText("ON");
+            this.power_button.setText("OFF");
             this.power_button.setBackground(Style.bad_color);
             this.name_label.setEnabled(false);
             this.generator.enabled = false;

@@ -3,9 +3,9 @@ package vrd.ui.gen_dialog;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import vrd.alg.Algorithm;
 import vrd.alg.SignatureList;
+import vrd.alg.property.Property;
 import vrd.gen.BlendMode;
 import vrd.gen.Generator;
 import vrd.ui.gen_dialog.property.PropertyPanel;
@@ -38,7 +39,7 @@ public class GeneratorDialog extends JDialog
         this.save_button = new Button("Save");
             this.save_button.addActionListener((ActionEvent _)->
             { save(); });
-            
+
         this.save_panel = new Panel(new BorderLayout());
             this.save_panel.add(save_button, BorderLayout.SOUTH);
 
@@ -56,7 +57,7 @@ public class GeneratorDialog extends JDialog
 
         this.algorithm_combo_box = new ComboBox<>(SignatureList.getAlgorithmNames());
             this.algorithm_combo_box.addActionListener((ActionEvent _)->
-            { updateProperties(); });
+            { resetProperties(); });
         
         this.algorithm_label = new JLabel("Algorithm");
 
@@ -71,7 +72,7 @@ public class GeneratorDialog extends JDialog
 
         this.property_panel = new PropertyPanel();
             // Visual
-            this.property_panel.setBorder(BorderFactory.createEtchedBorder());
+            this.property_panel.setBorder(Style.etched_border);
 
         this.name_field = new JTextField(Style.text_field_size);
 
@@ -91,6 +92,9 @@ public class GeneratorDialog extends JDialog
             // Visual
             this.main_panel.setBorder(Style.empty_border);
 
+        this.scroll_pane = new ScrollPane();
+            this.scroll_pane.add(this.main_panel);
+
         // Import generator data
 
         if(generator != null)
@@ -98,18 +102,18 @@ public class GeneratorDialog extends JDialog
             this.algorithm_combo_box.setSelectedItem(generator.algorithm.getSignature().name);
             this.blend_mode_combo_box.setSelectedItem(generator.blend_mode.name());
             this.name_field.setText(generator.name);
-            this.property_panel.updateProperties(generator.algorithm.getProperties());
+            this.property_panel.setProperties(generator.algorithm.getProperties());
         }
         else
         {
-            updateProperties();
+            resetProperties();
         }
 
         // Configure dialog
 
         setSize(new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT));
         setLocationRelativeTo(null);
-        setContentPane(this.main_panel);
+        setContentPane(this.scroll_pane);
         setResizable(false);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle("Generator");
@@ -147,30 +151,33 @@ public class GeneratorDialog extends JDialog
         save_operation.run(generator);
     }
 
-    private void updateProperties()
+    private void resetProperties()
     {
-        this.property_panel.updateProperties(SignatureList.makeAlgorithmFromId(
-            SignatureList.Id.values()[this.algorithm_combo_box.getSelectedIndex()]).getProperties());
+        Property[] default_properties = SignatureList.makeAlgorithmFromId(
+            SignatureList.Id.values()[this.algorithm_combo_box.getSelectedIndex()]).getProperties();
+
+        this.property_panel.setProperties(default_properties);
     }
 
     private final SaveOperation save_operation;
 
-    private Panel main_panel;
-        private Panel name_panel;
-            private JLabel name_label;
-            private JTextField name_field;
-        private PropertyPanel property_panel;
-        private Panel properties_label_panel;
-            private JLabel properties_label;
-        private Panel algorithm_panel; 
-            private JLabel algorithm_label;
-            private ComboBox<String> algorithm_combo_box;
-        private Panel bottom_panel;
-            private Panel blend_mode_panel;
-                private JLabel blend_mode_label;
-                private JComboBox<String> blend_mode_combo_box;
-            private Panel save_panel;
-                private Button save_button;
+    private ScrollPane scroll_pane;
+        private Panel main_panel;
+            private Panel name_panel;
+                private JLabel name_label;
+                private JTextField name_field;
+            private PropertyPanel property_panel;
+            private Panel properties_label_panel;
+                private JLabel properties_label;
+            private Panel algorithm_panel; 
+                private JLabel algorithm_label;
+                private ComboBox<String> algorithm_combo_box;
+            private Panel bottom_panel;
+                private Panel blend_mode_panel;
+                    private JLabel blend_mode_label;
+                    private JComboBox<String> blend_mode_combo_box;
+                private Panel save_panel;
+                    private Button save_button;
     
     private static final int DIALOG_WIDTH = 600;
     private static final int DIALOG_HEIGHT = 400;

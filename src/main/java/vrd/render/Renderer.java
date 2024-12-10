@@ -1,28 +1,55 @@
 package vrd.render;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Dimension;
 
+import vrd.ui.std.Canvas;
 import vrd.ui.std.Panel;
 
 import vrd.util.Content;
 
+// Should not be used in JPanels with a layout manager
 public class Renderer extends Panel
 {
-    public Renderer() // todo: maybe add a way to change interpreter
+    public Renderer() {}
+
+    public Renderer(Canvas canvas)
     {
-        
+        super();
+        setCanvas(canvas);
+    }
+
+    public void setCanvas(Canvas canvas)
+    {
+        this.canvas = canvas;
+
+        add(canvas);
+        setSize(new Dimension(canvas.width, canvas.height));
+    }
+
+    public void render(Content content)
+    {
+        Interpreter interpreter = Interpreter.make(content.getDimensionality());
+
+        interpreter.draw(content, this.canvas);
     }
 
     @Override
-    public void paintComponent(Graphics g)
+    public int getWidth()
     {
-        super.paintComponent(g);
+        if(this.canvas.width != super.getWidth())
+        { throw new IllegalStateException("Component's width does not match canvas width"); }
 
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, getWidth(), getHeight());//d
+        return canvas.width;
     }
 
-    Content content;
-    Interpreter interpreter; // todo: (note) this is structurally similar to noise algorithms
+    @Override
+    public int getHeight()
+    {
+        if(this.canvas.height != super.getHeight())
+        { throw new IllegalStateException("Component's height does not match canvas height"); }
+
+        return canvas.height;
+    }
+
+    private Canvas canvas;
 }

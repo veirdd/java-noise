@@ -8,6 +8,7 @@ public class ComboBox<T> extends JComboBox<T>
     {
         super(items);
 
+        setFocusable(false);
         setBackground(Style.enabled_color);
     }
 }
