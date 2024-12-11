@@ -1,9 +1,7 @@
-package vrd.alg.noise;
+package vrd.alg;
 
-import vrd.alg.Algorithm;
 import vrd.alg.property.FloatProperty;
-import vrd.alg.property.Property;
-import vrd.alg.property.UIntProperty;
+import vrd.alg.property.NaturalProperty;
 
 public abstract class Noise extends Algorithm
 { 
@@ -25,7 +23,7 @@ public abstract class Noise extends Algorithm
         return new Property[]
         {
             new FloatProperty(this.scale, "Scale"),
-            new UIntProperty(this.octave_count, "Octave count")
+            new NaturalProperty(this.octave_count, 1, 16, "Octave count")
         };
     }
 
@@ -35,7 +33,7 @@ public abstract class Noise extends Algorithm
     // actually just make a static method for generating property lists from uhh idk something
     {
         this.scale = ((FloatProperty)properties[PropertyId.Scale.ordinal()]).value;
-        this.octave_count = ((UIntProperty)properties[PropertyId.OctaveCount.ordinal()]).value;
+        this.octave_count = ((NaturalProperty)properties[PropertyId.OctaveCount.ordinal()]).value;
     }
 
     protected float scale;

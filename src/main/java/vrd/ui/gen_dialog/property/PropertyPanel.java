@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 
-import vrd.alg.property.UIntProperty;
+import vrd.alg.property.NaturalProperty;
+import vrd.alg.Property;
 import vrd.alg.property.FloatProperty;
-import vrd.alg.property.Property;
 import vrd.ui.std.Panel;
 
 public class PropertyPanel extends Panel
@@ -33,8 +33,8 @@ public class PropertyPanel extends Panel
         {
             switch(property.value_type) // todo: switch bad (look at how it was solved with algs maybe)
             {
-                case UInt:
-                    cell_list.add(new UIntPropertyCell((UIntProperty)property));
+                case Natural:
+                    cell_list.add(new NaturalPropertyCell((NaturalProperty)property));
                     break;
                 case Float:
                     cell_list.add(new FloatPropertyCell((FloatProperty)property));

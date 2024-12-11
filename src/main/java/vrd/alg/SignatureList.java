@@ -3,14 +3,14 @@ package vrd.alg;
 import java.util.ArrayList;
 import java.util.List;
 
-import vrd.alg.noise.PerlinNoise1d;
-import vrd.alg.noise.PerlinNoise2d;
+import vrd.alg.noise.*;
 
 public class SignatureList
 {
     public enum Id
     {
         ConstantValue,
+        Random,
         PerlinNoise1d,
         PerlinNoise2d
     }
@@ -55,6 +55,7 @@ public class SignatureList
         (
             // Should be same order as Id
             new ConstantValue(),
+            new Random(),
             new PerlinNoise1d(),
             new PerlinNoise2d()// showcase
         );

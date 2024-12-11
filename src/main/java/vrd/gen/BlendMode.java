@@ -1,5 +1,7 @@
 package vrd.gen;
 
+import vrd.util.FloatOperation;
+
 public enum BlendMode
 {
     Add,
@@ -15,4 +17,17 @@ public enum BlendMode
 
         return names;
     }
-};
+
+    public static FloatOperation getOperation(BlendMode mode)
+    {
+        switch(mode)
+        {
+            case Multiply:
+                return (float a, float b)->{ return a * b; };
+            case Divide:
+                return (float a, float b)->{ return a / b; };
+            default: // Add
+                return (float a, float b)->{ return a + b; };
+        }
+    }
+}

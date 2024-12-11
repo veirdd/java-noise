@@ -1,6 +1,8 @@
 package vrd.alg.property;
 
-public class FloatProperty extends Property // todo: can this be done with Property<T>?
+import vrd.alg.Property;
+
+public class FloatProperty extends Property // todo: min_value and max_value
 {
     public FloatProperty(float value, String name)
     {

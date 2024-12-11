@@ -15,8 +15,8 @@ import vrd.ui.std.Panel;
 import javax.swing.JTextField;
 
 import vrd.alg.Algorithm;
+import vrd.alg.Property;
 import vrd.alg.SignatureList;
-import vrd.alg.property.Property;
 import vrd.gen.BlendMode;
 import vrd.gen.Generator;
 import vrd.ui.gen_dialog.property.PropertyPanel;

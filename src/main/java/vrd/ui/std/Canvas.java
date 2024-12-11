@@ -2,20 +2,40 @@ package vrd.ui.std;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
-import javax.swing.JComponent;
+import javax.swing.JPanel;
 
-public class Canvas extends JComponent
+// Should be used within null layouts
+public class Canvas extends JPanel //todo enforce being used in null layouts or sth
 {
+    // Creates invalid canvas which cannot be seen and modified until setSize is called
+    public Canvas()
+    {
+        setBackground(Color.black);
+    }
+
     public Canvas(int width, int height)
     {
-        if(width <= 0 || height <= 0)
-        { throw new IllegalArgumentException("Canvas initialized with invalid size"); }
-
-        this.width = width;
-        this.height = height;
+        this();
 
         setSize(width, height);
+    }
+
+    public void set(int[] pos, Color color)
+    {
+        this.image.setRGB(pos[0], this.image.getHeight() - pos[1] - 1, color.getRGB());
+    }
+
+    public void clear()
+    { this.image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB); }
+
+    @Override
+    public void setSize(int width, int height) //todo vec2i or vec2u
+    {
+        super.setSize(width, height);
+
+        clear();
     }
 
     @Override
@@ -23,10 +43,10 @@ public class Canvas extends JComponent
     {
         super.paintComponent(g);
 
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, width, height);
+        //todo
+
+        g.drawImage(this.image, 0, 0, null);
     }
 
-    public final int width;
-    public final int height;
+    private BufferedImage image;
 }

@@ -16,10 +16,6 @@ public class Generator {
 
     public Content generate(int[] dimensions, int[] offset)
     {
-        // Check if argument dimensionalities match
-        if(dimensions.length != offset.length)
-        { throw new IllegalArgumentException("Arguments' dimensionalities mismatch"); }
-
         Content content = new Content(dimensions);
 
         int[] indices;

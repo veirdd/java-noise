@@ -1,7 +1,6 @@
 package vrd.alg;
 
 import vrd.alg.property.FloatProperty;
-import vrd.alg.property.Property;
 
 public class ConstantValue extends Algorithm
 {
@@ -20,7 +19,9 @@ public class ConstantValue extends Algorithm
 
     @Override
     public float algorithm(int[] pos)
-    { return this.value; }
+    {
+        return this.value;
+    }
 
     @Override
     public Signature getSignature()

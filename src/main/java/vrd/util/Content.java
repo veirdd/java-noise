@@ -1,5 +1,6 @@
 package vrd.util;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class Content implements Iterable<Float> {
@@ -13,6 +14,7 @@ public class Content implements Iterable<Float> {
         { element_count *= dimensions[i]; }
 
         this.data = new Float[element_count];
+            Arrays.fill(this.data, 0.f);
     }
 
     public void set(int[] indices, float value)
@@ -51,7 +53,7 @@ public class Content implements Iterable<Float> {
         return index;
     }
 
-    public int[] mapIndexToIndices(int index) // todo: does this work?
+    public int[] mapIndexToIndices(int index)
     {
         if(index < 0 || index >= this.data.length)
         { throw new IndexOutOfBoundsException(); }
@@ -69,8 +71,6 @@ public class Content implements Iterable<Float> {
         return indices;
     }
 
-    // currently obsolete lol
-    // q: can i use this somehow
     @Override
     public Iterator<Float> iterator()
     {
@@ -90,10 +90,28 @@ public class Content implements Iterable<Float> {
     }
 
     final private Float[] data;
-    final private int[] dimensions;
+    final public int[] dimensions;
+
+    public static Content combine(Content a, Content b, FloatOperation cell_operation)
+    {
+        // if(a.dimensions != b.dimensions) doesn't work lmao java go kys
+        if(!Arrays.equals(a.dimensions, b.dimensions))
+        { throw new IllegalArgumentException("Content dimensions mismatch"); }
+
+        Content out = new Content(a.dimensions);
+
+        int[] indices;
+        for(int i = 0; i < a.getSize(); ++i)
+        {
+            indices = a.mapIndexToIndices(i);
+            out.set(indices, cell_operation.calculate(a.get(indices), b.get(indices)));
+        }
+
+        return out;
+    }
 }
 
-class ContentIterator implements Iterator<Float> // q: should this be in Content body or here
+class ContentIterator implements Iterator<Float>
 {
     ContentIterator(Float[] data)
     {

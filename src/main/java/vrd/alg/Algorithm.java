@@ -1,7 +1,5 @@
 package vrd.alg;
 
-import vrd.alg.property.Property;
-
 public abstract class Algorithm
 {
     public float get(int[] pos) throws IllegalArgumentException

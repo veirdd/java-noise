@@ -1,4 +1,4 @@
-package vrd.alg.property;
+package vrd.alg;
 
 // Property of an Algorithm that may vary across instances
 // Subclasses should define constraints and types for property values
@@ -6,7 +6,7 @@ public abstract class Property
 {
     public enum ValueType // todo: this may be a bit ass
     {
-        UInt,
+        Natural,
         Float
     }
 

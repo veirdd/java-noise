@@ -1,55 +1,36 @@
 package vrd.render;
 
-import java.awt.Dimension;
-
+import vrd.render.view.View;
 import vrd.ui.std.Canvas;
-import vrd.ui.std.Panel;
 
 import vrd.util.Content;
 
-// Should not be used in JPanels with a layout manager
-public class Renderer extends Panel
+public class Renderer
 {
+    // Creates a renderer without output canvas and view
     public Renderer() {}
 
-    public Renderer(Canvas canvas)
+    public Renderer(Canvas canvas, View view)
     {
-        super();
+        this();
         setCanvas(canvas);
+        this.view = view;
     }
 
     public void setCanvas(Canvas canvas)
-    {
-        this.canvas = canvas;
-
-        add(canvas);
-        setSize(new Dimension(canvas.width, canvas.height));
-    }
+    { this.canvas = canvas; }
 
     public void render(Content content)
     {
-        Interpreter interpreter = Interpreter.make(content.getDimensionality());
+        this.canvas.clear();
 
-        interpreter.draw(content, this.canvas);
+        if(content != null)
+        { view.render(content, this.canvas); }
+
+        this.canvas.repaint();
     }
 
-    @Override
-    public int getWidth()
-    {
-        if(this.canvas.width != super.getWidth())
-        { throw new IllegalStateException("Component's width does not match canvas width"); }
-
-        return canvas.width;
-    }
-
-    @Override
-    public int getHeight()
-    {
-        if(this.canvas.height != super.getHeight())
-        { throw new IllegalStateException("Component's height does not match canvas height"); }
-
-        return canvas.height;
-    }
+    public View view;
 
     private Canvas canvas;
 }

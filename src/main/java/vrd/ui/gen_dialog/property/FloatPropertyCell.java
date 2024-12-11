@@ -1,9 +1,9 @@
 package vrd.ui.gen_dialog.property;
 
+import vrd.alg.Property;
 import vrd.alg.property.FloatProperty;
 import vrd.ui.std.FloatField;
 import vrd.ui.std.Style;
-import vrd.alg.property.Property;
 
 public class FloatPropertyCell extends PropertyCell
 {
@@ -11,26 +11,28 @@ public class FloatPropertyCell extends PropertyCell
     {
         super(property);
 
-        this.value_field = new FloatField(property.value);
-            this.value_field.setBackground(Style.enabled_color);
+        this.field = new FloatField(property.value);
+            this.field.setBackground(Style.enabled_color);
         
-        add(value_field);
+        add(field);
     }
 
     @Override
     public Property getProperty()
-    { return new FloatProperty(((FloatField)this.value_field).getValue(), this.name_label.getName()); }
+    { return new FloatProperty(this.field.getValue(), this.name_label.getName()); }
 
     @Override
     public boolean validateInput()
     {
-        boolean valid = ((FloatField)this.value_field).validateInput();
+        boolean valid = this.field.validateInput();
 
         if(valid)
-        { this.value_field.setBackground(Style.enabled_color);}
+        { this.field.setBackground(Style.enabled_color);}
         else
-        { this.value_field.setBackground(Style.bad_color);}
+        { this.field.setBackground(Style.bad_color);}
 
         return valid;
     }
+
+    private FloatField field;
 }
