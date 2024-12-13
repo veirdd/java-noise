@@ -6,8 +6,8 @@ import javax.swing.SwingUtilities;
 
 import vrd.gen.BlendMode;
 import vrd.gen.Generator;
+import vrd.gen.alg.property.SeedProperty;
 import vrd.render.Renderer;
-import vrd.render.view.Heightmap1d;
 import vrd.ui.Ui;
 import vrd.ui.std.Canvas;
 import vrd.util.Content;
@@ -21,17 +21,17 @@ class Main
     {
         this.generator_list = new ArrayList<>();
         this.canvas = new Canvas();
-        this.renderer = new Renderer(this.canvas, new Heightmap1d());//d
+        this.renderer = new Renderer(this.canvas, null);
 
         // Run AWT Component operations in ED thread
         SwingUtilities.invokeLater(()->
         {
-            ui = new Ui(generator_list, canvas, ()->
-            { generate(); });
+            ui = new Ui(generator_list, renderer, (SeedProperty seed_property)->
+            { generate(seed_property); });
         });
     }
 
-    private void generate()
+    private void generate(SeedProperty seed_property)
     {
         ArrayList<Generator> active_generator_list = getActiveGenerators();
         // Clear canvas and abort generation if no generators are active
@@ -42,7 +42,7 @@ class Main
         }
 
         ArrayList<Content> output_list = new ArrayList<>();
-        Content content = new Content(this.renderer.view.getRequiredContentSize(this.canvas));//d //todo set view
+        Content content = new Content(this.renderer.view.getRequiredContentSize(this.canvas));
 
         // Create generator output content layers
         try
@@ -51,7 +51,8 @@ class Main
             {
                 output_list.add(generator.generate(
                     content.dimensions, 
-                    new int[content.getDimensionality()]));
+                    new int[content.getDimensionality()],
+                    seed_property));
             }
         }
         catch(IllegalArgumentException _)

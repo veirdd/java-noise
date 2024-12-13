@@ -13,12 +13,9 @@ public class Renderer
     public Renderer(Canvas canvas, View view)
     {
         this();
-        setCanvas(canvas);
+        this.canvas = canvas;
         this.view = view;
     }
-
-    public void setCanvas(Canvas canvas)
-    { this.canvas = canvas; }
 
     public void render(Content content)
     {
@@ -31,6 +28,5 @@ public class Renderer
     }
 
     public View view;
-
-    private Canvas canvas;
+    public Canvas canvas;
 }

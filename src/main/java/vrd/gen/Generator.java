@@ -1,6 +1,7 @@
 package vrd.gen;
 
-import vrd.alg.Algorithm;
+import vrd.gen.alg.Algorithm;
+import vrd.gen.alg.property.SeedProperty;
 import vrd.util.Content;
 import vrd.util.Util;
 
@@ -14,9 +15,10 @@ public class Generator {
         this.enabled = true;
     }
 
-    public Content generate(int[] dimensions, int[] offset)
+    public Content generate(int[] dimensions, int[] offset, SeedProperty seed_property)
     {
         Content content = new Content(dimensions);
+        algorithm.reseed(seed_property);
 
         int[] indices;
         for(int i = 0; i < content.getSize(); ++i)
@@ -48,5 +50,5 @@ public class Generator {
 }
 
 
-// maybe: generate the whole content with offset on each update (scale, move, reseed) instead of getting single values every frame
-// todo: throw correctness for all functions
+//todo generation offset
+//todo throw correctness for all functions

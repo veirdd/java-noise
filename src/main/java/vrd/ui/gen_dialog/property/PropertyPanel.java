@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 
-import vrd.alg.property.NaturalProperty;
-import vrd.alg.Property;
-import vrd.alg.property.FloatProperty;
+import vrd.gen.alg.property.IntProperty;
+import vrd.gen.alg.property.Property;
+import vrd.gen.alg.property.SeedProperty;
+import vrd.gen.alg.property.FloatProperty;
 import vrd.ui.std.Panel;
 
 public class PropertyPanel extends Panel
@@ -33,11 +34,14 @@ public class PropertyPanel extends Panel
         {
             switch(property.value_type) // todo: switch bad (look at how it was solved with algs maybe)
             {
-                case Natural:
-                    cell_list.add(new NaturalPropertyCell((NaturalProperty)property));
+                case Int:
+                    cell_list.add(new IntPropertyCell((IntProperty)property));
                     break;
                 case Float:
                     cell_list.add(new FloatPropertyCell((FloatProperty)property));
+                    break;
+                case Seed:
+                    cell_list.add(new SeedPropertyCell((SeedProperty)property));
                     break;
             }
         }

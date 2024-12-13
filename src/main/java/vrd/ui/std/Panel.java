@@ -9,17 +9,12 @@ public class Panel extends JPanel
     public Panel()
     {
         super();
-        configure(); // todo: am i stupid bc i'm sure this can be more clean
+        setBackground(Style.background_color);
     }
 
     public Panel(LayoutManager layout_manager)
     {
-        super(layout_manager);
-        configure();
-    }
-
-    private void configure()
-    {
-        setBackground(Style.background_color);
+        this();
+        setLayout(layout_manager);
     }
 }

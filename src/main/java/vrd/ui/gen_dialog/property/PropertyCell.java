@@ -3,7 +3,7 @@ package vrd.ui.gen_dialog.property;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 
-import vrd.alg.Property;
+import vrd.gen.alg.property.Property;
 import vrd.ui.std.Panel;
 public abstract class PropertyCell extends Panel
 {

@@ -18,7 +18,6 @@ import vrd.ui.std.Style;
 
 public class GeneratorTile extends Panel
 {
-    // todo: delete button for generator lmao there's none
     public GeneratorTile(
         Generator generator, 
         MoveTileOperation move_operation, 

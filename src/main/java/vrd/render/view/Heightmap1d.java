@@ -5,11 +5,11 @@ import java.awt.Color;
 import vrd.ui.std.Canvas;
 import vrd.util.Content;
 
-public class Heightmap1d extends View
+public class HeightMap1d extends View
 {
     @Override
-    public int getDimensionality()
-    { return 1; }
+    public Signature getSignature()
+    { return new Signature(ViewList.Id.HeightMap1d, "HeightMap1D", 1); }
 
     @Override
     public int[] getRequiredContentSize(Canvas canvas)

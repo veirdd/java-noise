@@ -14,9 +14,9 @@ import javax.swing.JLabel;
 import vrd.ui.std.Panel;
 import javax.swing.JTextField;
 
-import vrd.alg.Algorithm;
-import vrd.alg.Property;
-import vrd.alg.SignatureList;
+import vrd.gen.alg.Algorithm;
+import vrd.gen.alg.AlgorithmList;
+import vrd.gen.alg.property.Property;
 import vrd.gen.BlendMode;
 import vrd.gen.Generator;
 import vrd.ui.gen_dialog.property.PropertyPanel;
@@ -55,7 +55,7 @@ public class GeneratorDialog extends JDialog
             this.bottom_panel.add(this.blend_mode_panel, BorderLayout.WEST);
             this.bottom_panel.add(this.save_panel, BorderLayout.EAST);
 
-        this.algorithm_combo_box = new ComboBox<>(SignatureList.getAlgorithmNames());
+        this.algorithm_combo_box = new ComboBox<>(AlgorithmList.getAlgorithmNames());
             this.algorithm_combo_box.addActionListener((ActionEvent _)->
             { resetProperties(); });
         
@@ -134,8 +134,8 @@ public class GeneratorDialog extends JDialog
         
         // Create the generator
 
-        Algorithm selected_algorithm = SignatureList.makeAlgorithmFromId(
-            SignatureList.Id.values()[this.algorithm_combo_box.getSelectedIndex()]);
+        Algorithm selected_algorithm = AlgorithmList.makeAlgorithmFromId(
+            AlgorithmList.Id.values()[this.algorithm_combo_box.getSelectedIndex()]);
 
         selected_algorithm.setProperties(this.property_panel.getProperties());
 
@@ -153,10 +153,14 @@ public class GeneratorDialog extends JDialog
 
     private void resetProperties()
     {
-        Property[] default_properties = SignatureList.makeAlgorithmFromId(
-            SignatureList.Id.values()[this.algorithm_combo_box.getSelectedIndex()]).getProperties();
+        Property[] default_properties = AlgorithmList.makeAlgorithmFromId(
+            AlgorithmList.Id.values()[this.algorithm_combo_box.getSelectedIndex()]).getProperties();
 
         this.property_panel.setProperties(default_properties);
+
+        // Hide property panel and its label when no properties are present
+        this.properties_label_panel.setVisible(default_properties.length > 0);
+        this.property_panel.setVisible(default_properties.length > 0);
     }
 
     private final SaveOperation save_operation;

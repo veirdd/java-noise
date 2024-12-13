@@ -1,7 +1,7 @@
 package vrd.ui.gen_dialog.property;
 
-import vrd.alg.Property;
-import vrd.alg.property.FloatProperty;
+import vrd.gen.alg.property.FloatProperty;
+import vrd.gen.alg.property.Property;
 import vrd.ui.std.FloatField;
 import vrd.ui.std.Style;
 
@@ -19,7 +19,7 @@ public class FloatPropertyCell extends PropertyCell
 
     @Override
     public Property getProperty()
-    { return new FloatProperty(this.field.getValue(), this.name_label.getName()); }
+    { return new FloatProperty(this.name_label.getName(), this.field.getValue()); }
 
     @Override
     public boolean validateInput()

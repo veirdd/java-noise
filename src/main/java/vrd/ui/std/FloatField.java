@@ -27,6 +27,7 @@ public class FloatField extends JTextField
     {
         try
         { Float.parseFloat(this.getText()); }
+        // If input is not a float
         catch(NumberFormatException _)
         { return false; }
 

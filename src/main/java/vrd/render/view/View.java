@@ -7,18 +7,20 @@ public abstract class View
 {
     public void render(Content content, Canvas canvas)
     {
-        if(content.getDimensionality() != getDimensionality())
+        // 0 for input universality
+        if(content.getDimensionality() != getSignature().input_dimensionality ||
+           getSignature().input_dimensionality == 0)
         {
             throw new IllegalArgumentException(
                 "Dimensionality of content )" + content.getDimensionality() +
-                ") does not match this view's input dimensionality (" + getDimensionality() + 
+                ") does not match this view's input dimensionality (" + getSignature().input_dimensionality + 
                 ")");
         }
 
         algorithm(content, canvas);
     }
-    
-    public abstract int getDimensionality();
+
+    public abstract Signature getSignature();
     public abstract int[] getRequiredContentSize(Canvas canvas);
 
     protected abstract void algorithm(Content content, Canvas canvas);

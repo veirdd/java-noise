@@ -43,8 +43,6 @@ public class Canvas extends JPanel //todo enforce being used in null layouts or 
     {
         super.paintComponent(g);
 
-        //todo
-
         g.drawImage(this.image, 0, 0, null);
     }
 
