@@ -18,7 +18,7 @@ public class SeedField extends JTextField
     public SeedField(SeedProperty.Macro initial_macro)
     {
         this();
-        setText(SeedProperty.macros.get(initial_macro.ordinal()));
+        setText(SeedProperty.macro_literals.get(initial_macro.ordinal()));
     }
 
     public SeedField(int initial_value)
@@ -50,7 +50,7 @@ public class SeedField extends JTextField
         int i = 0;
         for(; i < SeedProperty.Macro.values().length; ++i)
         {
-            if(getText().equals(SeedProperty.macros.get(i)))
+            if(getText().equals(SeedProperty.macro_literals.get(i)))
             { break; }
         }
 
@@ -64,7 +64,7 @@ public class SeedField extends JTextField
         // If input is not an integer
         catch(NumberFormatException _)
         {
-            if(SeedProperty.macros.contains(getText()))
+            if(SeedProperty.macro_literals.contains(getText()))
             { return InputType.Macro; }
 
             return InputType.Invalid;

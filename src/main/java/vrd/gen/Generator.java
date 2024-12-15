@@ -1,9 +1,7 @@
 package vrd.gen;
 
 import vrd.gen.alg.Algorithm;
-import vrd.gen.alg.property.SeedProperty;
 import vrd.util.Content;
-import vrd.util.Util;
 
 public class Generator {
     public Generator(Algorithm algorithm, BlendMode blend_mode)
@@ -15,17 +13,19 @@ public class Generator {
         this.enabled = true;
     }
 
-    public Content generate(int[] dimensions, int[] offset, SeedProperty seed_property)
+    public Content generate(int[] dimensions, Settings settings)
     {
         Content content = new Content(dimensions);
-        algorithm.reseed(seed_property);
+
+        // Apply settings
+            algorithm.seed(settings.seed_property);
 
         int[] indices;
         for(int i = 0; i < content.getSize(); ++i)
         {
             indices = content.mapIndexToIndices(i);
 
-            content.set(indices, algorithm.get(Util.arraySum(indices, offset)));
+            content.set(indices, algorithm.get(indices));
         }
 
         return content;

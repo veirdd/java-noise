@@ -25,18 +25,14 @@ public class SeedProperty extends Property
         this.value = value;
     }
 
-    public int getSeedInt()
-    {
-        if(this.macro == SeedProperty.Macro.Random)
-        { return (int)System.nanoTime(); }
-        else if(this.macro == SeedProperty.Macro.Default)
-        { return 0; }
-        // null
-        return this.value;
-    }
-
     public Macro macro;
     public int value;
 
-    public static final List<String> macros = List.of("default", "random");
-}//next add seed property to seed related algorithms and add global seed macro
+    // Used for literal String input in UI
+    // Should be same order as enum
+    public static final List<String> macro_literals = List.of
+    (
+        "default", 
+        "random"
+    );
+}

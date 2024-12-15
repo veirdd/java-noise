@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 
 import vrd.gen.GenerationOperation;
 import vrd.gen.Generator;
+import vrd.gen.Settings;
 import vrd.gen.alg.property.SeedProperty;
 import vrd.render.Renderer;
 import vrd.render.view.ViewList;
@@ -46,9 +47,9 @@ public class Ui
             this.canvas_panel.add(this.canvas);
 
         this.seed_field = new SeedField(SeedProperty.Macro.Default);
-            this.seed_field.setText("0");
+            this.seed_field.setText(SeedProperty.macro_literals.get(SeedProperty.Macro.Random.ordinal()));
 
-        this.seed_label = new JLabel("Seed");
+        this.seed_label = new JLabel("Default Seed");
 
         this.settings_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
             this.settings_panel.setPreferredSize(new Dimension(300, big));
@@ -163,31 +164,35 @@ public class Ui
         this.canvas.setSize(this.canvas_panel.getSize());
     }
 
-    private void generate()
+    private boolean generate()
     {
-        if(validateInputs())
-        {
-            SeedProperty seed_property = new SeedProperty("Seed", 0);
+        if(!validateInputs())
+        { return false; }
+
+        Settings settings = new Settings();
+
+        SeedProperty seed_property = new SeedProperty("Seed", 0);
             // The only enabled global macro is random
             if(this.seed_field.determineInput() == SeedField.InputType.Macro)
             { seed_property.macro = SeedProperty.Macro.Random; }
             else
-            // Concrete seed must be the case
+            // Concrete seed must be the case assuming validation happened
             { seed_property.value = this.seed_field.getValue(); }
+            settings.seed_property = seed_property;
 
-            generation_operation.run(seed_property);
-        }
+        generation_operation.run(settings);
+
+        return true;
     }
 
     private boolean validateInputs()
     {
         // seed_field
-
-        // Valid only if a concrete seed or the random macro is inputted
-        SeedField.InputType seed_field_input = this.seed_field.determineInput();
-        boolean seed_field_valid = 
-            seed_field_input == SeedField.InputType.Value ||
-            (seed_field_input == SeedField.InputType.Macro && this.seed_field.getMacro() == SeedProperty.Macro.Random);
+            // Valid only if a concrete seed or the random macro is inputted
+            SeedField.InputType seed_field_input = this.seed_field.determineInput();
+            boolean seed_field_valid = 
+                seed_field_input == SeedField.InputType.Value ||
+                (seed_field_input == SeedField.InputType.Macro && this.seed_field.getMacro() == SeedProperty.Macro.Random);
 
         if(seed_field_valid)
         { this.seed_field.setBackground(Style.enabled_color);}
@@ -232,5 +237,5 @@ public class Ui
 
     private static final Dimension frame_init_size = new Dimension(1200, 800);
     private static final int canvas_height = 400;
-    private static final int big = 9999; // todo: wtf xd
+    private static final int big = 9999;//todo wtf xd
 }

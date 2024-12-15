@@ -3,7 +3,11 @@ package vrd.gen.alg;
 import java.util.ArrayList;
 import java.util.List;
 
-import vrd.gen.alg.noise.*;
+import vrd.gen.alg.concrete.ConstantValue;
+import vrd.gen.alg.concrete.PerlinNoise1d;
+import vrd.gen.alg.concrete.PerlinNoise2d;
+import vrd.gen.alg.concrete.Random;
+import vrd.gen.alg.concrete.Sine;
 
 public class AlgorithmList
 {
@@ -11,6 +15,7 @@ public class AlgorithmList
     {
         ConstantValue,
         Random,
+        Sine,
         PerlinNoise1d,
         PerlinNoise2d
     }
@@ -53,6 +58,7 @@ public class AlgorithmList
             // Should be same order as Id
             new ConstantValue(),
             new Random(),
+            new Sine(),
             new PerlinNoise1d(),
             new PerlinNoise2d()// showcase
         );

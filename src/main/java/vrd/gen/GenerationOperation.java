@@ -1,10 +1,8 @@
 package vrd.gen;
 
-import vrd.gen.alg.property.SeedProperty;
-
 @FunctionalInterface
 public interface GenerationOperation
 {
-    // Contains the default SeedProperty for Algorithms requiring seeds to operate
-    public void run(SeedProperty seed);
+    // Runs a generation process using the specified settings
+    public void run(Settings settings);
 }

@@ -6,12 +6,12 @@ import java.util.Iterator;
 public class Content implements Iterable<Float> {
     public Content(int[] dimensions)
     {
-        this.dimensions = dimensions.clone(); // todo: check what happens for 0 dimensions lol
+        this.dimensions = dimensions.clone();
 
         int element_count = 1;
         // dimensions[0] * dimensions[1] * ... * dimensions[n]
-        for(int i = 0; i < dimensions.length; ++i)
-        { element_count *= dimensions[i]; }
+        for(int i = 0; i < this.dimensions.length; ++i)
+        { element_count *= this.dimensions[i]; }
 
         this.data = new Float[element_count];
             Arrays.fill(this.data, 0.f);

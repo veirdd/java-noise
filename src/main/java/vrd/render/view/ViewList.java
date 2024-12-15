@@ -8,7 +8,8 @@ public class ViewList
     public enum Id
     {
         HeightMap1d,
-        UnhingedHeightMap1d
+        FadeMap1d,
+        Cool
     }
 
     public static String[] getViewNames()
@@ -39,7 +40,8 @@ public class ViewList
         (
             // Should be same order as Id
             new HeightMap1d(),
-            new UnhingedHeightMap1d()
+            new FadeMap1d(),
+            new Cool()
         );
     }
 }

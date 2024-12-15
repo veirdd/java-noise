@@ -16,7 +16,7 @@ public class HeightMap1d extends View
     { return new int[]{canvas.getWidth()}; }
 
     @Override
-    protected void algorithm(Content content, Canvas canvas)
+    protected void renderImpl(Content content, Canvas canvas)
     {
         for(int x = 0; x < canvas.getWidth(); ++x)
         for(int y = 0; y < canvas.getHeight(); ++y)

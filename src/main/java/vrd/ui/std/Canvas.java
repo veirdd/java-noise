@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-// Should be used within null layouts
-public class Canvas extends JPanel //todo enforce being used in null layouts or sth
+// Should be used within layouts that do not enforce size
+public class Canvas extends JPanel
 {
     // Creates invalid canvas which cannot be seen and modified until setSize is called
     public Canvas()
@@ -31,7 +31,7 @@ public class Canvas extends JPanel //todo enforce being used in null layouts or 
     { this.image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB); }
 
     @Override
-    public void setSize(int width, int height) //todo vec2i or vec2u
+    public void setSize(int width, int height)
     {
         super.setSize(width, height);
 

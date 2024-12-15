@@ -12,16 +12,16 @@ public abstract class View
            getSignature().input_dimensionality == 0)
         {
             throw new IllegalArgumentException(
-                "Dimensionality of content )" + content.getDimensionality() +
+                "Dimensionality of content (" + content.getDimensionality() +
                 ") does not match this view's input dimensionality (" + getSignature().input_dimensionality + 
                 ")");
         }
 
-        algorithm(content, canvas);
+        renderImpl(content, canvas);
     }
 
     public abstract Signature getSignature();
     public abstract int[] getRequiredContentSize(Canvas canvas);
 
-    protected abstract void algorithm(Content content, Canvas canvas);
+    protected abstract void renderImpl(Content content, Canvas canvas);
 }

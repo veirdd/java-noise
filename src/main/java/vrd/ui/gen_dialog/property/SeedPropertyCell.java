@@ -25,9 +25,9 @@ public class SeedPropertyCell extends PropertyCell//todo hover icon/button for d
     public Property getProperty()
     {
         if(this.field.determineInput() == SeedField.InputType.Value)
-        { return new SeedProperty(this.name_label.getName(), this.field.getValue()); }
+        { return new SeedProperty(this.name_label.getText(), this.field.getValue()); }
 
-        return new SeedProperty(this.name_label.getName(), this.field.getMacro()); 
+        return new SeedProperty(this.name_label.getText(), this.field.getMacro()); 
     }
 
     @Override

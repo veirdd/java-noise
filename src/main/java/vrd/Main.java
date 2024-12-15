@@ -6,7 +6,8 @@ import javax.swing.SwingUtilities;
 
 import vrd.gen.BlendMode;
 import vrd.gen.Generator;
-import vrd.gen.alg.property.SeedProperty;
+import vrd.gen.Settings;
+import vrd.gen.alg.concrete.ConstantValue;
 import vrd.render.Renderer;
 import vrd.ui.Ui;
 import vrd.ui.std.Canvas;
@@ -23,17 +24,20 @@ class Main
         this.canvas = new Canvas();
         this.renderer = new Renderer(this.canvas, null);
 
+        this.generator_list.add(new Generator(new ConstantValue(200), BlendMode.Add));//d
+
         // Run AWT Component operations in ED thread
         SwingUtilities.invokeLater(()->
         {
-            ui = new Ui(generator_list, renderer, (SeedProperty seed_property)->
-            { generate(seed_property); });
+            ui = new Ui(generator_list, renderer, (Settings settings)->
+            { generate(settings); });
         });
     }
 
-    private void generate(SeedProperty seed_property)
+    private void generate(Settings settings)
     {
         ArrayList<Generator> active_generator_list = getActiveGenerators();
+        
         // Clear canvas and abort generation if no generators are active
         if(active_generator_list.size() == 0)
         {
@@ -50,14 +54,15 @@ class Main
             for(Generator generator : active_generator_list)
             {
                 output_list.add(generator.generate(
-                    content.dimensions, 
-                    new int[content.getDimensionality()],
-                    seed_property));
+                    content.dimensions,
+                    settings));
             }
         }
         catch(IllegalArgumentException _)
         {
-            ui.log("Unable to generate: generator dimensionalities mismatch");
+            ui.log("Unable to render: invalid view for generator output");
+            renderer.render(null);
+            return;
         }
 
         // Blend layers using corresponding generator's blend modes

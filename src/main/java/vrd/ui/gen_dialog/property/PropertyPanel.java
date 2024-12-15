@@ -32,7 +32,7 @@ public class PropertyPanel extends Panel
 
         for(Property property : properties)
         {
-            switch(property.value_type) // todo: switch bad (look at how it was solved with algs maybe)
+            switch(property.value_type)//todo switch bad (look at how it was solved with algs maybe)
             {
                 case Int:
                     cell_list.add(new IntPropertyCell((IntProperty)property));

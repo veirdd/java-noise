@@ -19,7 +19,7 @@ public class FloatPropertyCell extends PropertyCell
 
     @Override
     public Property getProperty()
-    { return new FloatProperty(this.name_label.getName(), this.field.getValue()); }
+    { return new FloatProperty(this.name_label.getText(), this.field.getValue()); }
 
     @Override
     public boolean validateInput()
