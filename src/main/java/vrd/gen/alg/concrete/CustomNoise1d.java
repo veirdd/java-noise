@@ -5,13 +5,11 @@ import vrd.gen.alg.noise.Noise1d;
 import vrd.gen.alg.property.SeedProperty;
 import vrd.gen.alg.AlgorithmList;
 
-public class PerlinNoise1d extends Noise1d
+public class CustomNoise1d extends Noise1d//todo make like pn2d
 {
     @Override
     public Signature getSignature()
-    {
-        return new Signature(AlgorithmList.Id.PerlinNoise1d, "PerlinNoise1D", 1);
-    }
+    { return new Signature(AlgorithmList.Id.CustomNoise1d, "CustomNoise [1D]", 1); }
 
     @Override
     public void seed(SeedProperty seed_property)

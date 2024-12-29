@@ -6,7 +6,8 @@ public enum BlendMode
 {
     Add,
     Multiply,
-    Divide;
+    Divide,
+    Fill;
 
     public static String[] getBlendModeNames()
     {
@@ -22,12 +23,16 @@ public enum BlendMode
     {
         switch(mode)
         {
-            case Multiply:
-                return (float a, float b)->{ return a * b; };
-            case Divide:
-                return (float a, float b)->{ return a / b; };
             default: // Add
-                return (float a, float b)->{ return a + b; };
+                return (float first, float second)->{ return first + second; };
+            case Multiply:
+                return (float first, float second)->{ return first * second; };
+            case Divide:
+                return (float first, float second)->{ return first / second; };
+            case Fill:
+                return
+                    (float first, float second)->
+                    { return first > second ? first : second; };
         }
     }
 }

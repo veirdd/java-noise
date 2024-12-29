@@ -83,7 +83,7 @@ public class Content implements Iterable<Float> {
         int multipler = 1;
 
         // multipler *= dimensions[0] * dimensions[1] * ... * dimensions[i - 1]; 
-        for(int j = i - 1; j > 0; --j)
+        for(int j = i - 1; j >= 0; --j)
         { multipler *= this.dimensions[j]; }
 
         return multipler;

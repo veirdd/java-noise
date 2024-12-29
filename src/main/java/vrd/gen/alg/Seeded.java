@@ -18,9 +18,9 @@ public interface Seeded extends Algorithm
     // Should return the SeedProperty of the implementation
     SeedProperty getSeedProperty();
 
-    Random random_seeded = new Random(); //todo is the generator initialized properly for every instance
+    Random random_seeded = new Random();
 
-    static boolean setSeedFromProperty(Random random, SeedProperty seed_property)
+    private static boolean setSeedFromProperty(Random random, SeedProperty seed_property)
     {
         if(seed_property.macro == SeedProperty.Macro.Default)
         { return false; }

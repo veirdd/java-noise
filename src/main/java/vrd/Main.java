@@ -8,7 +8,13 @@ import vrd.gen.BlendMode;
 import vrd.gen.Generator;
 import vrd.gen.Settings;
 import vrd.gen.alg.concrete.ConstantValue;
+import vrd.gen.alg.concrete.SimplexNoise2d;
+import vrd.gen.alg.concrete.custom_world.cwLevel;
+import vrd.gen.alg.property.FloatProperty;
+import vrd.gen.alg.property.SeedProperty;
+import vrd.gen.alg.property.Property;
 import vrd.render.Renderer;
+import vrd.render.view.ViewList;
 import vrd.ui.Ui;
 import vrd.ui.std.Canvas;
 import vrd.util.Content;
@@ -24,7 +30,9 @@ class Main
         this.canvas = new Canvas();
         this.renderer = new Renderer(this.canvas, null);
 
-        this.generator_list.add(new Generator(new ConstantValue(200), BlendMode.Add));//d
+        //d
+            this.generator_list.add(new Generator(new cwLevel(10), BlendMode.Add));
+            this.renderer.view = ViewList.makeViewFromId(ViewList.Id.CustomWorld);
 
         // Run AWT Component operations in ED thread
         SwingUtilities.invokeLater(()->

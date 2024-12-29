@@ -3,11 +3,8 @@ package vrd.gen.alg;
 import java.util.ArrayList;
 import java.util.List;
 
-import vrd.gen.alg.concrete.ConstantValue;
-import vrd.gen.alg.concrete.PerlinNoise1d;
-import vrd.gen.alg.concrete.PerlinNoise2d;
-import vrd.gen.alg.concrete.Random;
-import vrd.gen.alg.concrete.Sine;
+import vrd.gen.alg.concrete.*;
+import vrd.gen.alg.concrete.custom_world.*;
 
 public class AlgorithmList
 {
@@ -16,8 +13,11 @@ public class AlgorithmList
         ConstantValue,
         Random,
         Sine,
-        PerlinNoise1d,
-        PerlinNoise2d
+        CustomNoise1d,
+        SimplexNoise1d,
+        SimplexNoise2d,
+        cwNoise,
+        cwLevel
     }
 
     public static String[] getAlgorithmNames()
@@ -59,8 +59,11 @@ public class AlgorithmList
             new ConstantValue(),
             new Random(),
             new Sine(),
-            new PerlinNoise1d(),
-            new PerlinNoise2d()// showcase
+            new CustomNoise1d(),
+            new SimplexNoise1d(),
+            new SimplexNoise2d(),
+            new cwNoise(),
+            new cwLevel()
         );
     }
 }

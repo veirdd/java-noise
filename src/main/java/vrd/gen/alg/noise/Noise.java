@@ -7,7 +7,7 @@ import vrd.gen.alg.property.Property;
 import vrd.gen.alg.property.SeedProperty;
 
 public abstract class Noise extends DimensionalAlgorithm implements Seeded
-{ 
+{
     private enum PropertyId
     {
         Scale,

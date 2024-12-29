@@ -9,7 +9,8 @@ public class ViewList
     {
         HeightMap1d,
         FadeMap1d,
-        Cool
+        HeightMap2d,
+        CustomWorld
     }
 
     public static String[] getViewNames()
@@ -41,7 +42,8 @@ public class ViewList
             // Should be same order as Id
             new HeightMap1d(),
             new FadeMap1d(),
-            new Cool()
+            new HeightMap2d(),
+            new CustomWorld()
         );
     }
 }

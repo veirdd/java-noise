@@ -9,7 +9,7 @@ public class FadeMap1d extends View
 {
     @Override
     public Signature getSignature()
-    { return new Signature(ViewList.Id.FadeMap1d, "FadeMap1D", 1); }
+    { return new Signature(ViewList.Id.FadeMap1d, "FadeMap [1D]", 1); }
 
     @Override
     public int[] getRequiredContentSize(Canvas canvas)

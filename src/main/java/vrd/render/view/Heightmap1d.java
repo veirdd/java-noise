@@ -9,7 +9,7 @@ public class HeightMap1d extends View
 {
     @Override
     public Signature getSignature()
-    { return new Signature(ViewList.Id.HeightMap1d, "HeightMap1D", 1); }
+    { return new Signature(ViewList.Id.HeightMap1d, "HeightMap [1D]", 1); }
 
     @Override
     public int[] getRequiredContentSize(Canvas canvas)

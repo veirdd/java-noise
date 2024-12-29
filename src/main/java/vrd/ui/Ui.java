@@ -156,7 +156,8 @@ public class Ui
 
     public void log(String message)
     {
-
+        //todo console interface
+        System.out.println(message);//d
     }
 
     private void resizeComponents(ComponentEvent e)
