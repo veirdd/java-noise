@@ -4,6 +4,6 @@ plugins {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'vrd.Main'
+        attributes 'Main-Class': 'vd.Main'
     }
 }
