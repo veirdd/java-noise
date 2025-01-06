@@ -26,6 +26,11 @@ public class Renderer
         this.canvas.repaint();
     }
 
+    public int[] getRequiredContentSize()
+    {
+        return this.view.getRequiredContentSize(this.canvas);
+    }
+
     public View view;
     public Canvas canvas;
 }

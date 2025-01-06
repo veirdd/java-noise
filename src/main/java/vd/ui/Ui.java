@@ -15,7 +15,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import vd.gen.GenerationOperation;
 import vd.gen.Generator;
 import vd.gen.Settings;
 import vd.gen.alg.property.SeedProperty;
@@ -30,8 +29,13 @@ import vd.ui.std.Style;
 
 public class Ui
 {
-    public Ui(ArrayList<Generator> generator_list, Renderer renderer, GenerationOperation generation_operation)
+    public Ui(
+        ArrayList<Generator> generator_list, 
+        Renderer renderer, 
+        Settings settings, 
+        Runnable generation_operation)
     {            
+        this.settings = settings;
         this.generation_operation = generation_operation;
 
         // Arrange panels to structurize UI
@@ -169,8 +173,6 @@ public class Ui
         if(!validateInputs())
         { return false; }
 
-        Settings settings = new Settings();
-
         SeedProperty seed_property = new SeedProperty("Seed", 0);
             // The only enabled global macro is random
             if(this.seed_field.determineInput() == SeedField.InputType.Macro)
@@ -178,9 +180,9 @@ public class Ui
             else
             // Concrete seed must be the case assuming validation happened
             { seed_property.value = this.seed_field.getValue(); }
-            settings.seed_property = seed_property;
+            this.settings.seed_property = seed_property;
 
-        generation_operation.run(settings);
+        generation_operation.run();
 
         return true;
     }
@@ -208,7 +210,8 @@ public class Ui
         return true;
     }
 
-    private GenerationOperation generation_operation;
+    private Settings settings;
+    private Runnable generation_operation;
 
     public JFrame frame;
     private Panel main_panel;

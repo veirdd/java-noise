@@ -5,7 +5,7 @@ import java.awt.Color;
 import vd.ui.std.Canvas;
 import vd.util.Content;
 
-public class HeightMap2d extends View
+public class HeightMap2d extends DimensionalView
 {
     @Override
     public Signature getSignature()

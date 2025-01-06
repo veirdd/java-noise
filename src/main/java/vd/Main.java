@@ -24,8 +24,8 @@ class Main
     private void run()
     {
         this.generator_list = new ArrayList<>();
-        this.canvas = new Canvas();
-        this.renderer = new Renderer(this.canvas, null);
+        this.renderer = new Renderer(new Canvas(), null);
+        this.settings = new Settings();
 
         //d
             this.generator_list.add(new Generator(new cwLevel(20), BlendMode.Add));
@@ -36,12 +36,12 @@ class Main
         // Run AWT Component operations in ED thread
         SwingUtilities.invokeLater(()->
         {
-            ui = new Ui(generator_list, renderer, (Settings settings)->
-            { generate(settings); });
+            ui = new Ui(this.generator_list, this.renderer, this.settings, ()->
+            { generate(); });
         });
     }
 
-    private void generate(Settings settings)
+    private void generate()
     {
         ArrayList<Generator> active_generator_list = getActiveGenerators();
         
@@ -53,7 +53,7 @@ class Main
         }
 
         ArrayList<Content> output_list = new ArrayList<>();
-        Content content = new Content(this.renderer.view.getRequiredContentSize(this.canvas));
+        Content content = new Content(this.renderer.getRequiredContentSize());
 
         // Create generator output content layers
         try
@@ -62,7 +62,7 @@ class Main
             {
                 output_list.add(generator.generate(
                     content.dimensions,
-                    settings));
+                    this.settings));
             }
         }
         catch(IllegalArgumentException _)
@@ -98,7 +98,7 @@ class Main
     }
 
     private ArrayList<Generator> generator_list;
-    private Canvas canvas;
     private Renderer renderer;
     private Ui ui;
+    private Settings settings;
 }

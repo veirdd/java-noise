@@ -10,7 +10,7 @@ import vd.util.Content;
 import vd.util.Util;
 import vd.util.Vector3d;
 
-public class CustomWorld extends View//todo tiles render through each other lol
+public class CustomWorld extends DimensionalView//todo tiles render through each other lol
 {
     private class Triangle3d
     {
