@@ -15,5 +15,5 @@ public interface Algorithm
     void setProperties(Property[] properties);
 
     // Used for seeding Algorithms that implement Seeded
-    default void seed(SeedProperty default_seed_property) {};
+    default void seed(SeedProperty default_seed_property) {};//change to set settings or sth
 }

@@ -72,10 +72,10 @@ public class Ui
             this.right_panel.add(this.settings_panel);
 
         this.view_combo_box = new ComboBox<>(ViewList.getViewNames());
-            this.view_combo_box.addActionListener((ActionEvent _)->
+            this.view_combo_box.addActionListener((ActionEvent _) ->
             { renderer.view = ViewList.makeViewFromId(ViewList.Id.values()[this.view_combo_box.getSelectedIndex()]); });
-            if(renderer.view == null) // Other views are preserved for the purpose of debugging
-            { renderer.view = ViewList.makeViewFromId(ViewList.Id.values()[0]); } // Set default from combo box
+            // Set default view from combo box
+            renderer.view = ViewList.makeViewFromId(ViewList.Id.values()[0]);
 
         this.view_label = new JLabel("View");
 
@@ -98,7 +98,7 @@ public class Ui
 
         this.generate_button = new Button("Generate");
             this.generate_button.setAlignmentX(0.5f);
-            this.generate_button.addActionListener((ActionEvent _)->
+            this.generate_button.addActionListener((ActionEvent _) ->
             { generate(); });
 
         this.upper_panel = new Panel();

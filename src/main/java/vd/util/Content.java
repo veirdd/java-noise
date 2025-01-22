@@ -71,12 +71,6 @@ public class Content implements Iterable<Float> {
         return indices;
     }
 
-    @Override
-    public Iterator<Float> iterator()
-    {
-        return new ContentIterator(this.data);
-    }
-
     // Returns the factor used for spanning n-dimensional data uniquely
     private int dimensionMultipler(int i)
     {
@@ -88,9 +82,6 @@ public class Content implements Iterable<Float> {
 
         return multipler;
     }
-
-    final private Float[] data;
-    final public int[] dimensions;
 
     public static Content combine(Content a, Content b, FloatOperation cell_operation)
     {
@@ -109,6 +100,15 @@ public class Content implements Iterable<Float> {
 
         return out;
     }
+
+    @Override
+    public Iterator<Float> iterator()
+    {
+        return new ContentIterator(this.data);
+    }
+
+    final private Float[] data;
+    final public int[] dimensions;
 }
 
 class ContentIterator implements Iterator<Float>

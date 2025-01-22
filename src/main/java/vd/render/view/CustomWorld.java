@@ -3,7 +3,6 @@ package vd.render.view;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import vd.ui.std.Canvas;
 import vd.util.Content;
@@ -75,8 +74,7 @@ public class CustomWorld extends DimensionalView//todo tiles render through each
         }
 
         // Sort the mesh elements from furthest to nearest to camera for overlaying
-        this.mesh.sort((Triangle3d a, Triangle3d b)->
-        { return (int)getDistanceFromCamera(b) - (int)getDistanceFromCamera(a); });
+        this.mesh.sort((a, b) -> (int)getDistanceFromCamera(b) - (int)getDistanceFromCamera(a));
 
         for(Triangle3d triangle : this.mesh)
         { drawTriangle(triangle); }
@@ -109,11 +107,10 @@ public class CustomWorld extends DimensionalView//todo tiles render through each
             Math.clamp(green, 0, 255), 
             Math.clamp(blue, 0, 255));
 
-        // If water is present and height = water level
-
+        // If water is present and height == water level
         if(this.content.get(new int[]{0, 0, 2}) == 1 &&
-           vertex1.y == vertex2.y && 
-           vertex2.y == vertex3.y && 
+           vertex1.y == this.content.get(new int[]{1, 0, 2}) &&
+           vertex2.y == this.content.get(new int[]{1, 0, 2}) &&
            vertex3.y == this.content.get(new int[]{1, 0, 2}))
         { color = water_color; }
 
@@ -154,7 +151,7 @@ public class CustomWorld extends DimensionalView//todo tiles render through each
 
     private Color applyLight(Color color, Vector3d surface_vector)
     {
-        int luminance = Math.round(this.luminance_multipler * Math.abs(Vector3d.dotProduct(surface_vector.getUnitVector(), light)));
+        int luminance = Math.round(Vector3d.dotProduct(surface_vector.getUnitVector(), light));
 
         return new Color(
             Math.clamp(color.getRed() + luminance, 0, 255), 
@@ -211,7 +208,7 @@ public class CustomWorld extends DimensionalView//todo tiles render through each
     private float camera_angle_v;
     private float fov;
     // Describes the direction and intensity
-    private final Vector3d light = new Vector3d(-10, -10, 10);
+    private final Vector3d light = new Vector3d(70, -70, -70);
 
     private ArrayList<Triangle3d> mesh;
 
@@ -220,6 +217,5 @@ public class CustomWorld extends DimensionalView//todo tiles render through each
     private Canvas canvas;
     
     final float object_scale = 1;
-    final float luminance_multipler = 5;
     final Color water_color = new Color(20, 50, 100);
 }

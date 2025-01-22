@@ -37,7 +37,7 @@ public class GeneratorDialog extends JDialog
 
         // Create interface
         this.save_button = new Button("Save");
-            this.save_button.addActionListener((ActionEvent _)->
+            this.save_button.addActionListener((ActionEvent _) ->
             { save(); });
 
         this.save_panel = new Panel(new BorderLayout());
@@ -56,7 +56,7 @@ public class GeneratorDialog extends JDialog
             this.bottom_panel.add(this.save_panel, BorderLayout.EAST);
 
         this.algorithm_combo_box = new ComboBox<>(AlgorithmList.getAlgorithmNames());
-            this.algorithm_combo_box.addActionListener((ActionEvent _)->
+            this.algorithm_combo_box.addActionListener((ActionEvent _) ->
             { resetProperties(); });
         
         this.algorithm_label = new JLabel("Algorithm");

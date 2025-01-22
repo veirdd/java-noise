@@ -23,7 +23,7 @@ public class AddGeneratorButton extends Button
         
         this.update_notifier = update_notifier;
 
-        addActionListener((ActionEvent _)->
+        addActionListener((ActionEvent _) ->
         { openDialog(); });
     }
 
@@ -34,7 +34,7 @@ public class AddGeneratorButton extends Button
             this.dialog = new GeneratorDialog(
                 (JFrame)SwingUtilities.getWindowAncestor(this), 
                 null, 
-                (Generator generator)->
+                (Generator generator) ->
                 { onDialogSave(generator); });
         }
     }

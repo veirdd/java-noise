@@ -1,0 +1,1 @@
+call java src/main/java/ztest/util/ContentTest.java

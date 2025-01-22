@@ -19,7 +19,7 @@ public class GeneratorPanel extends ScrollPane
         this.plus = new AddGeneratorButton(
             "+", 
             this.generator_list, 
-            ()->
+            () ->
             { updateComponents(); });
             this.plus.setAlignmentX(LEFT_ALIGNMENT);
 
@@ -36,11 +36,11 @@ public class GeneratorPanel extends ScrollPane
 
             GeneratorTile gen_tile = new GeneratorTile(
                 this.generator_list.get(i),
-                (MoveTileOperation.Direction direction)->
+                (MoveTileOperation.Direction direction) ->
                 { moveTile(I, direction); },
-                ()->
+                () ->
                 { removeTile(I); },
-                ()->
+                () ->
                 { updateComponents(); });
 
             gen_tile.setAlignmentX(LEFT_ALIGNMENT);

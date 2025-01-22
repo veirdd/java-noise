@@ -30,7 +30,7 @@ public class SeedField extends JTextField
     private SeedField()
     {
         setColumns(Style.text_field_size);
-        addActionListener((ActionEvent _)->
+        addActionListener((ActionEvent _) ->
         { determineInput(); });
     }
 

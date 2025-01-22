@@ -11,7 +11,7 @@ public class FloatField extends JTextField
         setColumns(Style.text_field_size);
         setText(Float.toString(initial_value));
 
-        addActionListener((ActionEvent _)->
+        addActionListener((ActionEvent _) ->
         { validateInput(); });
     }
 

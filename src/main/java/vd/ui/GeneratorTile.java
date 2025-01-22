@@ -33,7 +33,7 @@ public class GeneratorTile extends Panel
         this.update_notifier = update_notifier;
 
         this.power_button = new Button("ON");
-            this.power_button.addActionListener((ActionEvent _)->
+            this.power_button.addActionListener((ActionEvent _) ->
             { switchEnabled(); });
             // Visual
             this.power_button.setBackground(Style.good_color);
@@ -45,19 +45,19 @@ public class GeneratorTile extends Panel
                 this.power_button.getPreferredSize().height));
 
         this.up_button = new Button("↑");
-            this.up_button.addActionListener((ActionEvent _)->
+            this.up_button.addActionListener((ActionEvent _) ->
             { move_operation.request(Direction.Up); });
 
         this.down_button = new Button("↓");
-            this.down_button.addActionListener((ActionEvent _)->
+            this.down_button.addActionListener((ActionEvent _) ->
             { move_operation.request(Direction.Down); });
 
         this.modify_button = new Button("...");
-            this.modify_button.addActionListener((ActionEvent _)->
+            this.modify_button.addActionListener((ActionEvent _) ->
             { openDialog(); });
         
         this.remove_button = new Button("✖");
-            this.remove_button.addActionListener((ActionEvent _)->
+            this.remove_button.addActionListener((ActionEvent _) ->
             { remove_operation.run(); });
         
         this.name_label = new JLabel(this.generator.name);
@@ -128,7 +128,7 @@ public class GeneratorTile extends Panel
             this.dialog = new GeneratorDialog(
                 (JFrame)SwingUtilities.getWindowAncestor(this),
                 this.generator,
-                (Generator generator)->
+                (Generator generator) ->
                 { onDialogSave(generator); });
         }
     }

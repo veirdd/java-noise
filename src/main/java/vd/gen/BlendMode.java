@@ -24,14 +24,20 @@ public enum BlendMode
         switch(mode)
         {
             default: // Add
-                return (float first, float second)->{ return first + second; };
+                return 
+                    (float first, float second) -> 
+                    { return first + second; };
             case Multiply:
-                return (float first, float second)->{ return first * second; };
+                return 
+                    (float first, float second) -> 
+                    { return first * second; };
             case Divide:
-                return (float first, float second)->{ return first / second; };
+                return 
+                    (float first, float second) -> 
+                    { return first / second; };
             case Fill:
                 return
-                    (float first, float second)->
+                    (float first, float second) ->
                     { return first > second ? first : second; };
         }
     }
