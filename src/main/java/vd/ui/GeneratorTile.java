@@ -135,7 +135,7 @@ public class GeneratorTile extends Panel
 
     private void onDialogSave(Generator generator)
     {
-        // can't just reassign the generator because it's f java ofc
+        // can't just reassign the generator because it's your everyday java ofc
         this.generator.algorithm = generator.algorithm;
         this.generator.blend_mode = generator.blend_mode;
         this.generator.name = generator.name;

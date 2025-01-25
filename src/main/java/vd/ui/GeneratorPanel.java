@@ -63,7 +63,7 @@ public class GeneratorPanel extends ScrollPane
 
         this.panel.add(this.plus);
 
-        // Java shits itself in amusing ways if we don't call these
+        // Java       itself in amusing ways if we don't call these
         this.panel.repaint();
         this.panel.revalidate();
     }

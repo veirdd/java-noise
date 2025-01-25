@@ -30,7 +30,7 @@ public class Content implements Iterable<Float> {
     { return this.data.length; }
 
     // Converts n-dimensional index (indices) to a unique 1-dimensional index
-    // Public because why the fuck not
+    // Public because why the      not
     public int mapIndicesToIndex(int[] indices)
     {
         if(indices.length != this.dimensions.length)
@@ -85,7 +85,7 @@ public class Content implements Iterable<Float> {
 
     public static Content combine(Content a, Content b, FloatOperation cell_operation)
     {
-        // if(a.dimensions != b.dimensions) doesn't work lmao java go kys
+        // if(a.dimensions != b.dimensions) doesn't work lol java kys
         if(!Arrays.equals(a.dimensions, b.dimensions))
         { throw new IllegalArgumentException("Content dimensions mismatch"); }
 
