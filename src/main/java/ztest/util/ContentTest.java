@@ -28,11 +28,6 @@ public class ContentTest {
             return content.getSize() == 10 * 20 * 40 * 5;
         });
 
-        new Test("mapIndexToIndices", () ->
-        {
-            return Arrays.equals(content.mapIndexToIndices(3), new int[]{3, 0, 0, 0});
-        });
-
         new Test("mapIndicesToIndex", () ->
         {
             return content.mapIndicesToIndex(new int[]{3, 0, 0, 0}) == 3;

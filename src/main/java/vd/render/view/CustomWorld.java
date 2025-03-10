@@ -8,6 +8,7 @@ import vd.ui.std.Canvas;
 import vd.util.Content;
 import vd.util.Util;
 import vd.util.Vector3d;
+import vd.util.Content.ContentIterator;
 
 public class CustomWorld extends DimensionalView//todo tiles render through each other lol
 {
@@ -59,9 +60,10 @@ public class CustomWorld extends DimensionalView//todo tiles render through each
         this.mesh.clear();
 
         // Create the mesh
-        for(int i = 0; i < this.content.getSize(); ++i)
+        int[] pos;
+        for(ContentIterator iterator = this.content.iterator(); iterator.hasNext(); iterator.next())
         {
-            int pos[] = this.content.mapIndexToIndices(i);
+            pos = iterator.getCurrentIndices();
             // First layer (heightmap)
             if(pos[2] == 0)
             {

@@ -5,7 +5,6 @@ import vd.gen.alg.DimensionalAlgorithm;
 import vd.gen.alg.Seeded;
 import vd.gen.alg.Signature;
 import vd.gen.alg.property.FloatProperty;
-import vd.gen.alg.property.IntProperty;
 import vd.gen.alg.property.Property;
 import vd.gen.alg.property.SeedProperty;
 

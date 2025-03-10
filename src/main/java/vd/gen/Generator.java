@@ -2,13 +2,14 @@ package vd.gen;
 
 import vd.gen.alg.Algorithm;
 import vd.util.Content;
+import vd.util.Content.ContentIterator;
 
 public class Generator {
     public Generator(Algorithm algorithm, BlendMode blend_mode)
     {
         this.algorithm = algorithm;
         this.blend_mode = blend_mode;
-        // Set default name from algorithm's signature
+        // Set the default name from algorithm's signature
         this.name = algorithm.getSignature().name;
         this.enabled = true;
     }
@@ -18,13 +19,12 @@ public class Generator {
         Content content = new Content(dimensions);
 
         // Apply settings
-            algorithm.seed(settings.seed_property);
+        algorithm.seed(settings.seed_property);
 
         int[] indices;
-        for(int i = 0; i < content.getSize(); ++i)
+        for(ContentIterator iterator = content.iterator(); iterator.hasNext(); iterator.next())
         {
-            indices = content.mapIndexToIndices(i);
-
+            indices = iterator.getCurrentIndices();
             content.set(indices, algorithm.get(indices));
         }
 

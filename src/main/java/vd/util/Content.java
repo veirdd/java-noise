@@ -3,6 +3,7 @@ package vd.util;
 import java.util.Arrays;
 import java.util.Iterator;
 
+// n-dimensional float container
 public class Content implements Iterable<Float> {
     public Content(int[] dimensions)
     {
@@ -53,24 +54,6 @@ public class Content implements Iterable<Float> {
         return index;
     }
 
-    public int[] mapIndexToIndices(int index)
-    {
-        if(index < 0 || index >= this.data.length)
-        { throw new IndexOutOfBoundsException(); }
-
-        int indices[] = new int[this.dimensions.length];
-        int dimension_multipler;
-
-        for(int i = indices.length - 1; i >= 0; --i)
-        {
-            dimension_multipler = dimensionMultipler(i);
-            indices[i] = index / dimension_multipler;
-            index %= dimension_multipler;
-        }
-
-        return indices;
-    }
-
     // Returns the factor used for spanning n-dimensional data uniquely
     private int dimensionMultipler(int i)
     {
@@ -92,9 +75,9 @@ public class Content implements Iterable<Float> {
         Content out = new Content(a.dimensions);
 
         int[] indices;
-        for(int i = 0; i < a.getSize(); ++i)
+        for(ContentIterator iterator = a.iterator(); iterator.hasNext(); iterator.next())
         {
-            indices = a.mapIndexToIndices(i);
+            indices = iterator.getCurrentIndices();
             out.set(indices, cell_operation.calculate(a.get(indices), b.get(indices)));
         }
 
@@ -102,34 +85,52 @@ public class Content implements Iterable<Float> {
     }
 
     @Override
-    public Iterator<Float> iterator()
+    public ContentIterator iterator()
+    { return new ContentIterator(this); }
+
+    public class ContentIterator implements Iterator<Float>
     {
-        return new ContentIterator(this.data);
-    }
+        ContentIterator(Content content)
+        {
+            this.content = content;
+        }
+
+        public int[] getCurrentIndices()
+        { return mapIndexToIndices(index); }
+
+        @Override
+        public boolean hasNext()
+        { return this.index < this.content.data.length && this.content.data[this.index] != null; }
+
+        @Override
+        public Float next()
+        { return this.content.data[index++]; }
+
+        @Override
+        public void remove()
+        { throw new UnsupportedOperationException(); }
+
+        private int[] mapIndexToIndices(int index)
+        {
+            if(index < 0 || index >= this.content.data.length)
+            { throw new IndexOutOfBoundsException(); }
+
+            int indices[] = new int[this.content.dimensions.length];
+            int dimension_multipler;
+            for(int i = indices.length - 1; i >= 0; --i)
+            {
+                dimension_multipler = dimensionMultipler(i);
+                indices[i] = index / dimension_multipler;
+                index %= dimension_multipler;
+            }
+
+            return indices;
+        }
+
+        private int index = 0;
+        final private Content content;
+    };
 
     final private Float[] data;
     final public int[] dimensions;
 }
-
-class ContentIterator implements Iterator<Float>
-{
-    ContentIterator(Float[] data)
-    {
-        this.data = data;
-    }
-
-    @Override
-    public boolean hasNext()
-    { return this.index < this.data.length && this.data[this.index] != null; }
-
-    @Override
-    public Float next()
-    { return this.data[this.index++]; }
-
-    @Override
-    public void remove()
-    { throw new UnsupportedOperationException(); }
-
-    private int index = 0;
-    final private Float[] data;
-};
